@@ -22,7 +22,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(stormListener, this);
         getCommand("stormtime").setExecutor(new StormCommand(stormListener));
 
-        getServer().getPluginManager().registerEvents(new DifficultityOnePlayers(), this);
+        getServer().getPluginManager().registerEvents(new DifficultityOnePlayers(this), this);
         getServer().getPluginManager().registerEvents(new AllMobsListener(), this);
         getServer().getPluginManager().registerEvents(new BlazeListener(), this);
         getServer().getPluginManager().registerEvents(new CreeperListener(), this);

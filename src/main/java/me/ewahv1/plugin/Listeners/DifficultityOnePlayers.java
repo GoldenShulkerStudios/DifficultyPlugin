@@ -10,10 +10,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class DifficultityOnePlayers implements Listener {
     private Random random = new Random();
     private int failProbability = 90; // Puedes cambiar este valor para ajustar la probabilidad de falla
+    private JavaPlugin plugin; // Referencia al plugin
+
+    public DifficultityOnePlayers(JavaPlugin plugin) {
+        this.plugin = plugin; // Inicializa la referencia al plugin
+    }
 
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event) {
@@ -35,7 +41,7 @@ public class DifficultityOnePlayers implements Listener {
                 player.setHealth(0);
                 
                 // Cambia el modo de juego del jugador a espectador
-                Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+                Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                     public void run() {
                         player.setGameMode(GameMode.SPECTATOR);
                     }

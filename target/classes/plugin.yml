@@ -1,0 +1,11 @@
+name: PluginDifficulty
+description: This plugin is created for the Insomnia
+author: ewahv1
+main: me.ewahv1.plugin.Main
+version: 0.0.1
+url: https://github.com/2lstudios-mc/bukkit-boilerplate
+api-version: 1.20
+commands:
+  stormtime:
+    description: Establece el tiempo de la tormenta.
+    usage: /<command> <segundos>

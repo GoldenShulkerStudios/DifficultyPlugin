@@ -8,8 +8,10 @@ import me.ewahv1.plugin.Listeners.Mobs.BlazeListener;
 import me.ewahv1.plugin.Listeners.Mobs.CreeperListener;
 import me.ewahv1.plugin.Listeners.Mobs.GhastListener;
 import me.ewahv1.plugin.Listeners.Mobs.PhantomListener;
+import me.ewahv1.plugin.Listeners.Mobs.PillagerListener;
 import me.ewahv1.plugin.Listeners.Mobs.SkeletonListener;
 import me.ewahv1.plugin.Listeners.Mobs.VexListener;
+import me.ewahv1.plugin.Listeners.Mobs.VindicatorListener;
 import me.ewahv1.plugin.Listeners.Mobs.WitherSkeletonListener;
 import me.ewahv1.plugin.Listeners.Mobs.ZombieListener;
 //import me.ewahv1.plugin.Commands.StormCommand;
@@ -30,8 +32,10 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CreeperListener(), this);
         getServer().getPluginManager().registerEvents(new GhastListener(), this);
         getServer().getPluginManager().registerEvents(new PhantomListener(), this);
+        getServer().getPluginManager().registerEvents(new PillagerListener(), this);
         getServer().getPluginManager().registerEvents(new SkeletonListener(), this);
         getServer().getPluginManager().registerEvents(new VexListener(), this);
+        getServer().getPluginManager().registerEvents(new VindicatorListener(), this);
         getServer().getPluginManager().registerEvents(new WitherSkeletonListener(), this);
         getServer().getPluginManager().registerEvents(new ZombieListener(), this);
     }

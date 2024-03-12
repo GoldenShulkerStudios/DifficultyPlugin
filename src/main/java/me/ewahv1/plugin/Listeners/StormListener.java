@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
@@ -21,13 +22,18 @@ public class StormListener implements Listener {
     private JavaPlugin plugin;
     private int stormTime = 0; // Variable que almacena la cantidad de tormenta en segundos
     private int baseStormTime = 120; // Tiempo base de la tormenta en segundos (2 minutos)
-    private Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-    private Objective objective = scoreboard.registerNewObjective("stormTime", "dummy", ChatColor.GRAY + "Quedan ");
+    private Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+    private Objective objective;
     private BossBar bossBar = Bukkit.createBossBar(ChatColor.GRAY + "Tiempo restante de la tormenta: ", BarColor.WHITE, BarStyle.SOLID);
     private BukkitTask stormTask;
 
     public StormListener(JavaPlugin plugin) {
         this.plugin = plugin;
+        if (scoreboard.getObjective("stormTime") == null) {
+            objective = scoreboard.registerNewObjective("stormTime", "dummy", ChatColor.GRAY + "Quedan ");
+        } else {
+            objective = scoreboard.getObjective("stormTime");
+        }
     }
 
     public void setStormTime(int stormTime) {
@@ -50,7 +56,6 @@ public class StormListener implements Listener {
 
         // Mostrar un action bar con el tiempo restante de la tormenta
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            onlinePlayer.setScoreboard(scoreboard);
             bossBar.addPlayer(onlinePlayer);
         }
 
@@ -82,6 +87,15 @@ public class StormListener implements Listener {
         Player player = event.getPlayer();
         if (player.getWorld().hasStorm()) {
             bossBar.addPlayer(player);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerBedEnter(PlayerBedEnterEvent event) {
+        Player player = event.getPlayer();
+        if (player.getWorld().hasStorm()) {
+            event.setCancelled(true);
+            player.sendMessage(ChatColor.RED + "No puedes dormir durante una tormenta!");
         }
     }
 

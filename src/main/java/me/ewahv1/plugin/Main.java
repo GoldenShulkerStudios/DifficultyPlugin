@@ -31,7 +31,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DifficultityOnePlayers(this), this);
         getServer().getPluginManager().registerEvents(new AllMobsListener(), this);
         getServer().getPluginManager().registerEvents(new BlazeListener(), this);
-        getServer().getPluginManager().registerEvents(new CreeperListener(), this);
+        getServer().getPluginManager().registerEvents(new CreeperListener(this), this);
         getServer().getPluginManager().registerEvents(new GhastListener(), this);
         getServer().getPluginManager().registerEvents(new PhantomListener(), this);
         getServer().getPluginManager().registerEvents(new PillagerListener(), this);

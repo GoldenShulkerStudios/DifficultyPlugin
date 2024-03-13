@@ -1,16 +1,17 @@
-package me.ewahv1.plugin.Commands;
+package me.ewahv1.plugin.Commands.Storm;
 
-import me.ewahv1.plugin.Listeners.StormListener;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class StormCommand implements CommandExecutor {
+import me.ewahv1.plugin.Listeners.Storm.StormListener;
+
+public class SetStormTimeCommand implements CommandExecutor {
 
     private StormListener stormListener;
 
-    public StormCommand(StormListener stormListener) {
+    public SetStormTimeCommand(StormListener stormListener) {
         this.stormListener = stormListener;
     }
 
@@ -27,7 +28,7 @@ public class StormCommand implements CommandExecutor {
                     player.sendMessage("Por favor, introduce un número válido.");
                 }
             } else {
-                player.sendMessage("Uso: /stormtime <segundos>");
+                player.sendMessage("Uso: /setstormtime <segundos>");
             }
         } else {
             sender.sendMessage("Este comando solo puede ser utilizado por un jugador.");

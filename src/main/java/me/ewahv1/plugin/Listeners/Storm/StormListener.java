@@ -1,4 +1,4 @@
-package me.ewahv1.plugin.Listeners;
+package me.ewahv1.plugin.Listeners.Storm;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,8 +20,9 @@ import org.bukkit.scheduler.BukkitTask;
 public class StormListener implements Listener {
 
     private JavaPlugin plugin;
-    private int stormTime = 0; // Variable que almacena la cantidad de tormenta en segundos
-    private int baseStormTime = 120; // Tiempo base de la tormenta en segundos (2 minutos)
+    private int stormTime = 0;
+    private int baseStormTime = 120;
+    private boolean stormActive = true;
     private Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
     private Objective objective;
     private BossBar bossBar = Bukkit.createBossBar(ChatColor.GRAY + "Tiempo restante de la tormenta: ", BarColor.WHITE, BarStyle.SOLID);
@@ -40,46 +41,53 @@ public class StormListener implements Listener {
         this.stormTime = stormTime;
     }
 
+    public void setBaseStormTime(int baseStormTime) {
+        this.baseStormTime = baseStormTime;
+    }
+
+    public int getStormTime() {
+        return this.stormTime;
+    }
+
+    public void setStormActive(boolean stormActive) {
+        this.stormActive = stormActive;
+    }
+
+    public void hideBossBar() {
+        this.bossBar.setVisible(false);
+    }
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-
-        // Aumentar el tiempo de tormenta en el tiempo base cada vez que un jugador muere
-        stormTime += baseStormTime;
-        baseStormTime *= 2; // Duplicar el tiempo base de la tormenta
-        player.getWorld().setStorm(true);
-        player.getWorld().setWeatherDuration(stormTime * 20); // Convertir segundos a ticks (20 ticks = 1 segundo)
-
-        // Actualizar el marcador con el tiempo restante de la tormenta
-        Score score = objective.getScore(ChatColor.WHITE + " segundos de tormenta");
-        score.setScore(stormTime);
-
-        // Mostrar un action bar con el tiempo restante de la tormenta
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            bossBar.addPlayer(onlinePlayer);
-        }
-
-        // Actualizar el action bar con el tiempo restante de la tormenta
-        updateBossBar();
-
-        // Cancelar la tarea anterior si existe
-        if (stormTask != null) {
-            stormTask.cancel();
-        }
-
-        // Crear una tarea que se ejecuta cada segundo (20 ticks = 1 segundo)
-        stormTask = Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (player.getWorld().hasStorm()) {
-                    stormTime--;
-                    updateBossBar();
-                    if (stormTime <= 0) {
-                        bossBar.removeAll(); // Remover todos los jugadores de la barra de jefe cuando el tiempo de la tormenta llegue a 0
+        if (stormActive) { // Solo activa la tormenta si stormActive es verdadero
+            stormTime += baseStormTime;
+            baseStormTime *= 2;
+            player.getWorld().setStorm(true);
+            bossBar.setVisible(true);
+            player.getWorld().setWeatherDuration(stormTime * 20);
+            Score score = objective.getScore(ChatColor.WHITE + " segundos de tormenta");
+            score.setScore(stormTime);
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                bossBar.addPlayer(onlinePlayer);
+            }
+            updateBossBar();
+            if (stormTask != null) {
+                stormTask.cancel();
+            }
+            stormTask = Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
+                @Override
+                public void run() {
+                    if (player.getWorld().hasStorm()) {
+                        stormTime--;
+                        updateBossBar();
+                        if (stormTime <= 0) {
+                            bossBar.removeAll();
+                        }
                     }
                 }
-            }
-        }, 0L, 20L);
+            }, 0L, 20L);
+        }
     }
 
     @EventHandler

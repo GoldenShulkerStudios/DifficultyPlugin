@@ -6,6 +6,60 @@ version: 0.0.1
 url: https://github.com/2lstudios-mc/bukkit-boilerplate
 api-version: 1.20
 commands:
-  stormtime:
+  setstormtime:
     description: Establece el tiempo de la tormenta.
     usage: /<command> <segundos>
+    permission: PluginDifficulty.setstormtime
+  togglestorm:
+    description: Activa o desactiva la tormenta.
+    usage: /<command>
+    permission: PluginDifficulty.togglestorm
+  resetstorm:
+    description: Reinicia la tormenta.
+    usage: /<command>
+    permission: PluginDifficulty.resetstorm
+  stormstatus:
+    description: Muestra el estado de la tormenta.
+    usage: /<command>
+    permission: PluginDifficulty.stormstatus
+  setbasestormtime:
+    description: Establece el tiempo base de la tormenta.
+    usage: /<command> <segundos>
+    permission: PluginDifficulty.setbasestormtime
+  togglestotem:
+    description: Activa o desactiva la mecánica de failtotem.
+    usage: /<command>
+    permission: PluginDifficulty.togglestotem
+  setfailtotem:
+    description: Ajusta el porcentaje de falla del totem.
+    usage: /<command> <porcentaje>
+    permission: PluginDifficulty.setfailtotem
+  totemstatus:
+    description: Muestra el estado actual del totem.
+    usage: /<command>
+    permission: PluginDifficulty.totemstatus
+permissions:
+  PluginDifficulty.setstormtime:
+    description: Permite al jugador establecer el tiempo de la tormenta.
+    default: op
+  PluginDifficulty.togglestorm:
+    description: Permite al jugador activar o desactivar la tormenta.
+    default: op
+  PluginDifficulty.resetstorm:
+    description: Permite al jugador reiniciar la tormenta.
+    default: op
+  PluginDifficulty.stormstatus:
+    description: Permite al jugador ver el estado de la tormenta.
+    default: op
+  PluginDifficulty.setbasestormtime:
+    description: Permite al jugador establecer el tiempo base de la tormenta.
+    default: op
+  PluginDifficulty.togglestotem:
+    description: Permite al jugador activar o desactivar la mecánica de failtotem.
+    default: op
+  PluginDifficulty.setfailtotem:
+    description: Permite al jugador ajustar el porcentaje de falla del totem.
+    default: op
+  PluginDifficulty.totemstatus:
+    description: Permite al jugador ver el estado actual del totem.
+    default: op

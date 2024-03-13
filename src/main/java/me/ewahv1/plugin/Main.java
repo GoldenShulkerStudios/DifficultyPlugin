@@ -1,30 +1,32 @@
 package me.ewahv1.plugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import me.ewahv1.plugin.Listeners.DifficultityOnePlayers;
-import me.ewahv1.plugin.Listeners.StormListener;
-import me.ewahv1.plugin.Commands.StormCommand;
-import me.ewahv1.plugin.Listeners.Mobs.AllMobsListener;
-import me.ewahv1.plugin.Listeners.Mobs.BlazeListener;
-import me.ewahv1.plugin.Listeners.Mobs.CreeperListener;
-import me.ewahv1.plugin.Listeners.Mobs.GhastListener;
-import me.ewahv1.plugin.Listeners.Mobs.PhantomListener;
-import me.ewahv1.plugin.Listeners.Mobs.PillagerListener;
-import me.ewahv1.plugin.Listeners.Mobs.SkeletonListener;
-import me.ewahv1.plugin.Listeners.Mobs.VexListener;
-import me.ewahv1.plugin.Listeners.Mobs.VindicatorListener;
-import me.ewahv1.plugin.Listeners.Mobs.WitherSkeletonListener;
-import me.ewahv1.plugin.Listeners.Mobs.ZombieListener;
+import me.ewahv1.plugin.Commands.Storm.*;
+import me.ewahv1.plugin.Commands.Totem.*;
+import me.ewahv1.plugin.Listeners.Mobs.*;
+import me.ewahv1.plugin.Listeners.Storm.StormListener;
+import me.ewahv1.plugin.Listeners.Items.FailTotemListener;
+import me.ewahv1.plugin.Listeners.*;
 
 public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
         StormListener stormListener = new StormListener(this);
+        FailTotemListener failTotemListener = new FailTotemListener(this);
+
         getServer().getPluginManager().registerEvents(stormListener, this);
+        getServer().getPluginManager().registerEvents(failTotemListener, this);
 
+        getCommand("setstormtime").setExecutor(new SetStormTimeCommand(stormListener));
+        getCommand("togglestorm").setExecutor(new ToggleStormCommand(stormListener));
+        getCommand("resetstorm").setExecutor(new ResetStormCommand(stormListener));
+        getCommand("stormstatus").setExecutor(new StormStatusCommand(stormListener));
+        getCommand("setbasestormtime").setExecutor(new SetBaseStormTimeCommand(stormListener));
 
-        getCommand("stormtime").setExecutor(new StormCommand(stormListener));
+        getCommand("togglestotem").setExecutor(new ToggleTotemCommand(failTotemListener));
+        getCommand("setfailtotem").setExecutor(new SetFailTotemCommand(failTotemListener));
+        getCommand("totemstatus").setExecutor(new TotemStatusCommand(failTotemListener));
 
         getServer().getPluginManager().registerEvents(new DifficultityOnePlayers(this), this);
         getServer().getPluginManager().registerEvents(new AllMobsListener(), this);

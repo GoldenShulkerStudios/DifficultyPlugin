@@ -51,15 +51,15 @@ public class FailTotemListener implements Listener {
             return;
         }
 
-        if (player.getInventory().contains(Material.TOTEM_OF_UNDYING) && isTotemActive) {
+        if ((player.getInventory().getItemInMainHand().getType() == Material.TOTEM_OF_UNDYING || player.getInventory().getItemInOffHand().getType() == Material.TOTEM_OF_UNDYING) && isTotemActive) {
 
             if (random.nextInt(100) < failProbability) {
-                player.setHealth(1); // Deja al jugador con medio corazón de vida
-                
-                // Aplica los efectos de lentitud, ceguera y debilidad al jugador durante 20 segundos
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 20, 0));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 20, 0));
-                player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20 * 20, 0));
+                // Quita el totem de la mano principal o secundaria del jugador
+                if (player.getInventory().getItemInMainHand().getType() == Material.TOTEM_OF_UNDYING) {
+                    player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
+                } else if (player.getInventory().getItemInOffHand().getType() == Material.TOTEM_OF_UNDYING) {
+                    player.getInventory().getItemInOffHand().setAmount(player.getInventory().getItemInOffHand().getAmount() - 1);
+                }
                 
                 Bukkit.broadcastMessage(ChatColor.DARK_RED + "El totem de " + player.getName() + " ha fallado con una probabilidad del " + failProbability + "% de fallar");
             }

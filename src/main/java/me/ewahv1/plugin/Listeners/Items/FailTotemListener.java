@@ -1,5 +1,7 @@
 package me.ewahv1.plugin.Listeners.Items;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -11,14 +13,31 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.ewahv1.plugin.Database.Connection;
+
 public class FailTotemListener implements Listener {
     private Random random = new Random();
-    private int failProbability = 1; // Puedes cambiar este valor para ajustar la probabilidad de falla
+    private int failProbability;
     private JavaPlugin plugin;
-    private boolean isTotemActive = true; // Asume que el totem está activo por defecto
+    private boolean isTotemActive;
 
     public FailTotemListener(JavaPlugin plugin) {
         this.plugin = plugin;
+        loadSettingsFromDatabase();
+    }
+
+    private void loadSettingsFromDatabase() {
+        try {
+            Statement statement = Connection.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM totemsettings WHERE ID = 1");
+
+            if (resultSet.next()) {
+                this.failProbability = resultSet.getInt("FailPorcentage");
+                this.isTotemActive = resultSet.getBoolean("Status");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setFailProbability(int failProbability) {

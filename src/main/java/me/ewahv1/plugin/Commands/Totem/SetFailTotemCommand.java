@@ -5,6 +5,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import java.sql.PreparedStatement;
+
+import me.ewahv1.plugin.Database.Connection;
+
 public class SetFailTotemCommand implements CommandExecutor {
     private FailTotemListener failTotemListener;
 
@@ -27,11 +31,22 @@ public class SetFailTotemCommand implements CommandExecutor {
             }
 
             failTotemListener.setFailProbability(percentage);
+            updateDatabase(percentage);
             sender.sendMessage("El porcentaje de falla del totem ahora está establecido en " + percentage + "%.");
             return true;
         } catch (NumberFormatException e) {
             sender.sendMessage("Por favor, proporciona un número válido.");
             return false;
+        }
+    }
+
+    private void updateDatabase(int percentage) {
+        try {
+            PreparedStatement statement = Connection.getConnection().prepareStatement("UPDATE totemsettings SET FailPorcentage = ? WHERE ID = 1");
+            statement.setInt(1, percentage);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

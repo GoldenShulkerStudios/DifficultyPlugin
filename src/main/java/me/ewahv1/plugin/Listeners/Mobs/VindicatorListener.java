@@ -14,8 +14,9 @@ public class VindicatorListener implements Listener {
         if (event.getEntity() instanceof Vindicator) {
             Vindicator vindicator = (Vindicator) event.getEntity();
             ItemStack netheriteAxe = new ItemStack(Material.NETHERITE_AXE);
-            netheriteAxe.addEnchantment(Enchantment.DAMAGE_ALL, 5);
+            netheriteAxe.addEnchantment(Enchantment.DAMAGE_ALL, 5); // Sharpness 5
             vindicator.getEquipment().setItemInMainHand(netheriteAxe);
+            vindicator.getEquipment().setItemInMainHandDropChance(0); // No drop for the axe
         }
     }
 }

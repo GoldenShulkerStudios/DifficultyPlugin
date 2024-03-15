@@ -7,12 +7,11 @@ c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plug
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\CreeperListener.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Commands\Storm\SetStormTimeCommand.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\ZombieListener.java
-c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\DifficultityOnePlayers.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\BlazeListener.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\SkeletonListener.java
+c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Commands\Mobs\AllMobsBuffCommand.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Commands\Storm\SetBaseStormTimeCommand.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Commands\Totem\ToggleTotemCommand.java
-c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\AllMobsListener.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Commands\Storm\StormStatusCommand.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\WitherSkeletonListener.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Storm\StormListener.java
@@ -20,5 +19,6 @@ c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plug
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\PillagerListener.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\GhastListener.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\PhantomListener.java
+c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\AllMobsBuffListener.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Mobs\AllPlayersListener.java
 c:\Users\M4pX_\OneDrive\Escritorio\PluginDifficulty\src\main\java\me\ewahv1\plugin\Listeners\Items\FailTotemListener.java

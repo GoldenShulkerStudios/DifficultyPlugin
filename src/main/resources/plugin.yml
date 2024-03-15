@@ -26,10 +26,10 @@ commands:
     description: Establece el tiempo base de la tormenta.
     usage: /<command> <segundos>
     permission: ${name}.setbasestormtime
-  togglestotem:
+  toggletotem:
     description: Activa o desactiva la mecánica de failtotem.
     usage: /<command>
-    permission: ${name}.togglestotem
+    permission: ${name}.toggletotem
   setfailtotem:
     description: Ajusta el porcentaje de falla del totem.
     usage: /<command> <porcentaje>
@@ -38,6 +38,30 @@ commands:
     description: Muestra el estado actual del totem.
     usage: /<command>
     permission: ${name}.totemstatus
+  setAllMobsBuffGenericAttackDamage:
+    description: Establece el multiplicador de daño de todos los mobs.
+    usage: /<command> <multiplicador>
+    permission: ${name}.setAllMobsBuffGenericAttackDamage
+  setAllMobsBuffSpeed:
+    description: Establece el nivel de velocidad de todos los mobs.
+    usage: /<command> <nivel>
+    permission: ${name}.setAllMobsBuffSpeed
+  setAllMobsBuffStrength:
+    description: Establece el nivel de fuerza de todos los mobs.
+    usage: /<command> <nivel>
+    permission: ${name}.setAllMobsBuffStrength
+  setAllMobsBuffResistance:
+    description: Establece el nivel de resistencia de todos los mobs.
+    usage: /<command> <nivel>
+    permission: ${name}.setAllMobsBuffResistance
+  setAllMobsBuffRegeneration:
+    description: Establece el nivel de regeneración de todos los mobs.
+    usage: /<command> <nivel>
+    permission: ${name}.setAllMobsBuffRegeneration
+  setAllMobsBuffInvisibilityChance:
+    description: Establece la probabilidad de invisibilidad de todos los mobs.
+    usage: /<command> <probabilidad>
+    permission: ${name}.setAllMobsBuffInvisibilityChance
 permissions:
   ${name}.setstormtime:
     description: Permite al jugador establecer el tiempo de la tormenta.
@@ -54,7 +78,7 @@ permissions:
   ${name}.setbasestormtime:
     description: Permite al jugador establecer el tiempo base de la tormenta.
     default: op
-  ${name}.togglestotem:
+  ${name}.toggletotem:
     description: Permite al jugador activar o desactivar la mecánica de failtotem.
     default: op
   ${name}.setfailtotem:
@@ -62,4 +86,22 @@ permissions:
     default: op
   ${name}.totemstatus:
     description: Permite al jugador ver el estado actual del totem.
+    default: op
+  ${name}.setAllMobsBuffGenericAttackDamage:
+    description: Permite al jugador establecer el multiplicador de daño de todos los mobs.
+    default: op
+  ${name}.setAllMobsBuffSpeed:
+    description: Permite al jugador establecer el nivel de velocidad de todos los mobs.
+    default: op
+  ${name}.setAllMobsBuffStrength:
+    description: Permite al jugador establecer el nivel de fuerza de todos los mobs.
+    default: op
+  ${name}.setAllMobsBuffResistance:
+    description: Permite al jugador establecer el nivel de resistencia de todos los mobs.
+    default: op
+  ${name}.setAllMobsBuffRegeneration:
+    description: Permite al jugador establecer el nivel de regeneración de todos los mobs.
+    default: op
+  ${name}.setAllMobsBuffInvisibilityChance:
+    description: Permite al jugador establecer la probabilidad de invisibilidad de todos los mobs.
     default: op

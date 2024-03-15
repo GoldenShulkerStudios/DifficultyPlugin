@@ -16,8 +16,10 @@ public class VexListener implements Listener {
         Entity entity = event.getEntity();
 
         if (entity instanceof Vex) {
-            ((Vex) entity).getEquipment().setItemInMainHand(new ItemStack(Material.DIAMOND_SWORD));
-            ((Vex) entity).getEquipment().getItemInMainHand().addEnchantment(Enchantment.DAMAGE_ALL, 2);
+            ItemStack diamondSword = new ItemStack(Material.DIAMOND_SWORD);
+            diamondSword.addEnchantment(Enchantment.FIRE_ASPECT, 2); // Flame 2
+            diamondSword.addEnchantment(Enchantment.DAMAGE_ALL, 3); // Sharpness 3
+            ((Vex) entity).getEquipment().setItemInMainHand(diamondSword);
             ((Vex) entity).getEquipment().setItemInMainHandDropChance(0);
         }
     }

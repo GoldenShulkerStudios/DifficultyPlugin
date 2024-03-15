@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class FailTotemListener implements Listener {
     private Random random = new Random();
-    private int failProbability = 10; // Puedes cambiar este valor para ajustar la probabilidad de falla
+    private int failProbability = 1; // Puedes cambiar este valor para ajustar la probabilidad de falla
     private JavaPlugin plugin;
     private boolean isTotemActive = true; // Asume que el totem está activo por defecto
 

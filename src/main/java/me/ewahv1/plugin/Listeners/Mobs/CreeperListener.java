@@ -11,14 +11,14 @@ import org.bukkit.event.entity.AreaEffectCloudApplyEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.potion.PotionEffectType;
-import me.ewahv1.plugin.Main;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class CreeperListener implements Listener {
 
-    private Main plugin;
+    private JavaPlugin plugin;
     private Creeper lastExplodedCreeper;
 
-    public CreeperListener(Main plugin) {
+    public CreeperListener(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 

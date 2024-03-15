@@ -38,30 +38,6 @@ commands:
     description: Muestra el estado actual del totem.
     usage: /<command>
     permission: PluginDifficulty.totemstatus
-  setAllMobsBuffGenericAttackDamage:
-    description: Establece el multiplicador de daño de todos los mobs.
-    usage: /<command> <multiplicador>
-    permission: PluginDifficulty.setAllMobsBuffGenericAttackDamage
-  setAllMobsBuffSpeed:
-    description: Establece el nivel de velocidad de todos los mobs.
-    usage: /<command> <nivel>
-    permission: PluginDifficulty.setAllMobsBuffSpeed
-  setAllMobsBuffStrength:
-    description: Establece el nivel de fuerza de todos los mobs.
-    usage: /<command> <nivel>
-    permission: PluginDifficulty.setAllMobsBuffStrength
-  setAllMobsBuffResistance:
-    description: Establece el nivel de resistencia de todos los mobs.
-    usage: /<command> <nivel>
-    permission: PluginDifficulty.setAllMobsBuffResistance
-  setAllMobsBuffRegeneration:
-    description: Establece el nivel de regeneración de todos los mobs.
-    usage: /<command> <nivel>
-    permission: PluginDifficulty.setAllMobsBuffRegeneration
-  setAllMobsBuffInvisibilityChance:
-    description: Establece la probabilidad de invisibilidad de todos los mobs.
-    usage: /<command> <probabilidad>
-    permission: PluginDifficulty.setAllMobsBuffInvisibilityChance
 permissions:
   PluginDifficulty.setstormtime:
     description: Permite al jugador establecer el tiempo de la tormenta.
@@ -86,22 +62,4 @@ permissions:
     default: op
   PluginDifficulty.totemstatus:
     description: Permite al jugador ver el estado actual del totem.
-    default: op
-  PluginDifficulty.setAllMobsBuffGenericAttackDamage:
-    description: Permite al jugador establecer el multiplicador de daño de todos los mobs.
-    default: op
-  PluginDifficulty.setAllMobsBuffSpeed:
-    description: Permite al jugador establecer el nivel de velocidad de todos los mobs.
-    default: op
-  PluginDifficulty.setAllMobsBuffStrength:
-    description: Permite al jugador establecer el nivel de fuerza de todos los mobs.
-    default: op
-  PluginDifficulty.setAllMobsBuffResistance:
-    description: Permite al jugador establecer el nivel de resistencia de todos los mobs.
-    default: op
-  PluginDifficulty.setAllMobsBuffRegeneration:
-    description: Permite al jugador establecer el nivel de regeneración de todos los mobs.
-    default: op
-  PluginDifficulty.setAllMobsBuffInvisibilityChance:
-    description: Permite al jugador establecer la probabilidad de invisibilidad de todos los mobs.
     default: op

@@ -3,7 +3,6 @@ package me.ewahv1.plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import me.ewahv1.plugin.Commands.Storm.*;
 import me.ewahv1.plugin.Commands.Totem.*;
-import me.ewahv1.plugin.Commands.Mobs.AllMobsBuffCommand; // Importa la clase AllMobsBuffCommand
 import me.ewahv1.plugin.Listeners.Mobs.*;
 import me.ewahv1.plugin.Listeners.Storm.StormListener;
 import me.ewahv1.plugin.Listeners.Items.FailTotemListener;
@@ -27,15 +26,6 @@ public class Main extends JavaPlugin {
         getCommand("toggletotem").setExecutor(new ToggleTotemCommand(failTotemListener));
         getCommand("setfailtotem").setExecutor(new SetFailTotemCommand(failTotemListener));
         getCommand("totemstatus").setExecutor(new TotemStatusCommand(failTotemListener));
-
-        AllMobsBuffListener allMobsBuffListener = new AllMobsBuffListener(); // Crea una instancia de AllMobsBuffListener
-        getServer().getPluginManager().registerEvents(allMobsBuffListener, this);
-        getCommand("setAllMobsBuffGenericAttackDamage").setExecutor(new AllMobsBuffCommand(allMobsBuffListener));
-        getCommand("setAllMobsBuffSpeed").setExecutor(new AllMobsBuffCommand(allMobsBuffListener));
-        getCommand("setAllMobsBuffStrength").setExecutor(new AllMobsBuffCommand(allMobsBuffListener));
-        getCommand("setAllMobsBuffResistance").setExecutor(new AllMobsBuffCommand(allMobsBuffListener));
-        getCommand("setAllMobsBuffRegeneration").setExecutor(new AllMobsBuffCommand(allMobsBuffListener));
-        getCommand("setAllMobsBuffInvisibilityChance").setExecutor(new AllMobsBuffCommand(allMobsBuffListener));
 
         getServer().getPluginManager().registerEvents(new BlazeListener(), this);
         getServer().getPluginManager().registerEvents(new CreeperListener(this), this);

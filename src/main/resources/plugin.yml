@@ -90,6 +90,38 @@ commands:
     description: Establece el poder de explosión del Ghast.
     usage: /<command> <power>
     permission: ${name}.setghastexplosionpower
+  setguardianresistance:
+    description: Establece la resistencia del Guardian.
+    usage: /<command> <resistance>
+    permission: ${name}.setguardianresistance
+  sethoglinknockback:
+    description: Establece el empuje hacia atrás del Hoglin.
+    usage: /<command> <knockback>
+    permission: ${name}.sethoglinknockback
+  sethuskaxe:
+    description: Establece el tipo de hacha del Husk.
+    usage: /<command> <axe>
+    permission: ${name}.sethuskaxe
+  sethusksharpness:
+    description: Establece la nitidez del hacha del Husk.
+    usage: /<command> <sharpness>
+    permission: ${name}.sethusksharpness
+  setmagmacubeknockback:
+    description: Establece el empuje hacia atrás del MagmaCube.
+    usage: /<command> <knockback>
+    permission: ${name}.setmagmacubeknockback
+  setmagmacubestrength:
+    description: Establece la fuerza del MagmaCube.
+    usage: /<command> <strength>
+    permission: ${name}.setmagmacubestrength
+  setphantomsize:
+    description: Establece el tamaño del Phantom.
+    usage: /<command> <size>
+    permission: ${name}.setphantomsize
+  setpiglinbrutespawn:
+    description: Establece el spawn del PiglinBrute.
+    usage: /<command> <spawn>
+    permission: ${name}.setpiglinbrutespawn
 permissions:
   ${name}.setstormtime:
     description: Permite al jugador establecer el tiempo de la tormenta.
@@ -153,4 +185,28 @@ permissions:
     default: op
   ${name}.setghastexplosionpower:
     description: Permite al jugador establecer el poder de explosión del Ghast.
+    default: op
+  ${name}.setguardianresistance:
+    description: Permite al jugador establecer la resistencia del Guardian.
+    default: op
+  ${name}.sethoglinknockback:
+    description: Permite al jugador establecer el empuje hacia atrás del Hoglin.
+    default: op
+  ${name}.sethuskaxe:
+    description: Permite al jugador establecer el tipo de hacha del Husk.
+    default: op
+  ${name}.sethusksharpness:
+    description: Permite al jugador establecer la nitidez del hacha del Husk.
+    default: op
+  ${name}.setmagmacubeknockback:
+    description: Permite al jugador establecer el empuje hacia atrás del MagmaCube.
+    default: op
+  ${name}.setmagmacubestrength:
+    description: Permite al jugador establecer la fuerza del MagmaCube.
+    default: op
+  ${name}.setphantomsize:
+    description: Permite al jugador establecer el tamaño del Phantom.
+    default: op
+  ${name}.setpiglinbrutespawn:
+    description: Permite al jugador establecer el spawn del PiglinBrute.
     default: op

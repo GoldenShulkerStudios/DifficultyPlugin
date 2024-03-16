@@ -49,6 +49,20 @@ public class Main extends JavaPlugin {
 
         getCommand("setghastexplosionpower").setExecutor(new GhastCommand());
 
+        getCommand("setguardianresistance").setExecutor(new GuardianCommand());
+
+        getCommand("sethoglinknockback").setExecutor(new HoglinCommand());
+
+        getCommand("sethuskaxe").setExecutor(new HuskCommand());
+        getCommand("sethusksharpness").setExecutor(new HuskCommand());
+
+        getCommand("setmagmacubeknockback").setExecutor(new MagmaCubeCommand());
+        getCommand("setmagmacubestrength").setExecutor(new MagmaCubeCommand());
+
+        getCommand("setphantomsize").setExecutor(new PhantomCommand());
+
+        getCommand("setpiglinbrutespawn").setExecutor(new PiglinBruteCommand());
+
         getServer().getPluginManager().registerEvents(new BlazeListener(), this);
         getServer().getPluginManager().registerEvents(new BeeListener(), this);
         getServer().getPluginManager().registerEvents(new CreeperListener(this), this);
@@ -57,7 +71,12 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EndermanListener(), this);
         getServer().getPluginManager().registerEvents(new EndermiteListener(), this);
         getServer().getPluginManager().registerEvents(new GhastListener(), this);
+        getServer().getPluginManager().registerEvents(new GuardianListener(), this);
+        getServer().getPluginManager().registerEvents(new HoglinListener(), this);
+        getServer().getPluginManager().registerEvents(new HuskListener(), this);
+        getServer().getPluginManager().registerEvents(new MagmaCubeListener(), this);
         getServer().getPluginManager().registerEvents(new PhantomListener(), this);
+        getServer().getPluginManager().registerEvents(new PiglinBruteListener(), this);
         getServer().getPluginManager().registerEvents(new PillagerListener(), this);
         getServer().getPluginManager().registerEvents(new SkeletonListener(), this);
         getServer().getPluginManager().registerEvents(new VexListener(), this);

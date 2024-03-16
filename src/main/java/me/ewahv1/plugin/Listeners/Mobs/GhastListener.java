@@ -1,5 +1,7 @@
 package me.ewahv1.plugin.Listeners.Mobs;
 
+import me.ewahv1.plugin.Database.Connection;
+
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
@@ -10,6 +12,9 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 public class GhastListener implements Listener {
 
     @EventHandler
@@ -18,9 +23,8 @@ public class GhastListener implements Listener {
 
         if (entity instanceof Ghast) {
             Ghast ghast = (Ghast) entity;
-            // Duplica la salud del Ghast
-            ghast.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(200.0D); // Duplica la salud del Ghast
-            ghast.setHealth(200.0D); // Asegúrate de que la salud actual del Ghast se establezca en el nuevo máximo
+            ghast.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(200.0D);
+            ghast.setHealth(200.0D);
         }
     }
 
@@ -31,8 +35,16 @@ public class GhastListener implements Listener {
             if (entityDamageByEntityEvent.getDamager() instanceof Fireball) {
                 Fireball fireball = (Fireball) entityDamageByEntityEvent.getDamager();
                 if (fireball.getShooter() instanceof Ghast) {
-                    // Duplica el daño de la explosión
-                    event.setDamage(event.getDamage() * 5); // Duplica el daño de la explosión
+                    try {
+                        PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT ExplosionPower FROM ghastsettings WHERE ID = 1");
+                        ResultSet rs = ps.executeQuery();
+                        if (rs.next()) {
+                            int explosionPower = rs.getInt("ExplosionPower");
+                            event.setDamage(event.getDamage() * explosionPower);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

@@ -1,5 +1,6 @@
 package me.ewahv1.plugin.Listeners.Mobs;
 
+import me.ewahv1.plugin.Database.Connection;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.Creeper;
@@ -12,6 +13,9 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class CreeperListener implements Listener {
 
@@ -27,7 +31,16 @@ public class CreeperListener implements Listener {
         Entity entity = event.getEntity();
 
         if (entity instanceof Creeper) {
-            ((Creeper) entity).setMaxFuseTicks((int)(((Creeper) entity).getMaxFuseTicks() * 0.5));
+            try {
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT ExplosionSpeed FROM creepersettings WHERE ID = 1");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    double explosionSpeed = rs.getDouble("ExplosionSpeed");
+                    ((Creeper) entity).setMaxFuseTicks((int)(((Creeper) entity).getMaxFuseTicks() / explosionSpeed));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

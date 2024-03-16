@@ -38,6 +38,58 @@ commands:
     description: Muestra el estado actual del totem.
     usage: /<command>
     permission: PluginDifficulty.totemstatus
+  toggleblaze:
+    description: Cambia el estado de inmunidad de los Blazes.
+    usage: /<command>
+    permission: PluginDifficulty.toggleblaze
+  blazestatus:
+    description: Muestra el estado de inmunidad de los Blazes.
+    usage: /<command>
+    permission: PluginDifficulty.blazestatus
+  setbeehostility:
+    description: Establece la hostilidad de las abejas.
+    usage: /<command> <true|false>
+    permission: PluginDifficulty.setbeehostility
+  setbeestrength:
+    description: Establece la fuerza de las abejas.
+    usage: /<command> <strength>
+    permission: PluginDifficulty.setbeestrength
+  setcreeperexplosionspeed:
+    description: Establece la velocidad de explosión de los Creepers.
+    usage: /<command> <speed>
+    permission: PluginDifficulty.setcreeperexplosionspeed
+  setelderguardianresistance:
+    description: Establece la resistencia del Elder Guardian.
+    usage: /<command> <resistance>
+    permission: PluginDifficulty.setelderguardianresistance
+  setdrownedtrident:
+    description: Establece si los Drowned tienen un tridente.
+    usage: /<command> <true|false>
+    permission: PluginDifficulty.setdrownedtrident
+  setdrownedchanneling:
+    description: Establece el nivel de channeling del tridente de los Drowned.
+    usage: /<command> <level>
+    permission: PluginDifficulty.setdrownedchanneling
+  setendermanspeed:
+    description: Establece la velocidad del Enderman.
+    usage: /<command> <speed>
+    permission: PluginDifficulty.setendermanspeed
+  setendermanstrength:
+    description: Establece la fuerza del Enderman.
+    usage: /<command> <strength>
+    permission: PluginDifficulty.setendermanstrength
+  setendermiteinvulnerability:
+    description: Establece la invulnerabilidad del Endermite.
+    usage: /<command> <true|false>
+    permission: PluginDifficulty.setendermiteinvulnerability
+  setendermitestrength:
+    description: Establece la fuerza del Endermite.
+    usage: /<command> <strength>
+    permission: PluginDifficulty.setendermitestrength
+  setghastexplosionpower:
+    description: Establece el poder de explosión del Ghast.
+    usage: /<command> <power>
+    permission: PluginDifficulty.setghastexplosionpower
 permissions:
   PluginDifficulty.setstormtime:
     description: Permite al jugador establecer el tiempo de la tormenta.
@@ -62,4 +114,43 @@ permissions:
     default: op
   PluginDifficulty.totemstatus:
     description: Permite al jugador ver el estado actual del totem.
+    default: op
+  PluginDifficulty.toggleblaze:
+    description: Permite al jugador cambiar el estado de inmunidad de los Blazes.
+    default: op
+  PluginDifficulty.blazestatus:
+    description: Permite al jugador ver el estado de inmunidad de los Blazes.
+    default: op
+  PluginDifficulty.setbeehostility:
+    description: Permite al jugador establecer la hostilidad de las abejas.
+    default: op
+  PluginDifficulty.setbeestrength:
+    description: Permite al jugador establecer la fuerza de las abejas.
+    default: op
+  PluginDifficulty.setcreeperexplosionspeed:
+    description: Permite al jugador establecer la velocidad de explosión de los Creepers.
+    default: op
+  PluginDifficulty.setelderguardianresistance:
+    description: Permite al jugador establecer la resistencia del Elder Guardian.
+    default: op
+  PluginDifficulty.setdrownedtrident:
+    description: Permite al jugador establecer si los Drowned tienen un tridente.
+    default: op
+  PluginDifficulty.setdrownedchanneling:
+    description: Permite al jugador establecer el nivel de channeling del tridente de los Drowned.
+    default: op
+  PluginDifficulty.setendermanspeed:
+    description: Permite al jugador establecer la velocidad del Enderman.
+    default: op
+  PluginDifficulty.setendermanstrength:
+    description: Permite al jugador establecer la fuerza del Enderman.
+    default: op
+  PluginDifficulty.setendermiteinvulnerability:
+    description: Permite al jugador establecer la invulnerabilidad del Endermite.
+    default: op
+  PluginDifficulty.setendermitestrength:
+    description: Permite al jugador establecer la fuerza del Endermite.
+    default: op
+  PluginDifficulty.setghastexplosionpower:
+    description: Permite al jugador establecer el poder de explosión del Ghast.
     default: op

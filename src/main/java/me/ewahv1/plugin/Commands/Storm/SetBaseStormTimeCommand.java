@@ -26,16 +26,12 @@ public class SetBaseStormTimeCommand implements CommandExecutor {
                     int baseStormTime = Integer.parseInt(args[0]);
                     stormListener.setBaseStormTime(baseStormTime);
 
-                    // Obtiene una conexión a la base de datos
                     java.sql.Connection connection = Connection.getConnection();
 
-                    // Crea un objeto PreparedStatement para enviar consultas SQL a la base de datos
                     PreparedStatement preparedStatement = connection.prepareStatement("UPDATE StormSettings SET BaseStormTime = ? WHERE ID = 1");
 
-                    // Establece los valores de las variables en la consulta SQL
-                    preparedStatement.setInt(1, baseStormTime); // Establece el tiempo base de la tormenta
+                    preparedStatement.setInt(1, baseStormTime);
 
-                    // Ejecuta la consulta SQL
                     preparedStatement.executeUpdate();
 
                     player.sendMessage("El tiempo base de la tormenta se ha establecido en " + baseStormTime + " segundos.");

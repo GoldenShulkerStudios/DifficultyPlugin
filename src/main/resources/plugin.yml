@@ -38,6 +38,58 @@ commands:
     description: Muestra el estado actual del totem.
     usage: /<command>
     permission: ${name}.totemstatus
+  toggleblaze:
+    description: Cambia el estado de inmunidad de los Blazes.
+    usage: /<command>
+    permission: ${name}.toggleblaze
+  blazestatus:
+    description: Muestra el estado de inmunidad de los Blazes.
+    usage: /<command>
+    permission: ${name}.blazestatus
+  setbeehostility:
+    description: Establece la hostilidad de las abejas.
+    usage: /<command> <true|false>
+    permission: ${name}.setbeehostility
+  setbeestrength:
+    description: Establece la fuerza de las abejas.
+    usage: /<command> <strength>
+    permission: ${name}.setbeestrength
+  setcreeperexplosionspeed:
+    description: Establece la velocidad de explosión de los Creepers.
+    usage: /<command> <speed>
+    permission: ${name}.setcreeperexplosionspeed
+  setelderguardianresistance:
+    description: Establece la resistencia del Elder Guardian.
+    usage: /<command> <resistance>
+    permission: ${name}.setelderguardianresistance
+  setdrownedtrident:
+    description: Establece si los Drowned tienen un tridente.
+    usage: /<command> <true|false>
+    permission: ${name}.setdrownedtrident
+  setdrownedchanneling:
+    description: Establece el nivel de channeling del tridente de los Drowned.
+    usage: /<command> <level>
+    permission: ${name}.setdrownedchanneling
+  setendermanspeed:
+    description: Establece la velocidad del Enderman.
+    usage: /<command> <speed>
+    permission: ${name}.setendermanspeed
+  setendermanstrength:
+    description: Establece la fuerza del Enderman.
+    usage: /<command> <strength>
+    permission: ${name}.setendermanstrength
+  setendermiteinvulnerability:
+    description: Establece la invulnerabilidad del Endermite.
+    usage: /<command> <true|false>
+    permission: ${name}.setendermiteinvulnerability
+  setendermitestrength:
+    description: Establece la fuerza del Endermite.
+    usage: /<command> <strength>
+    permission: ${name}.setendermitestrength
+  setghastexplosionpower:
+    description: Establece el poder de explosión del Ghast.
+    usage: /<command> <power>
+    permission: ${name}.setghastexplosionpower
 permissions:
   ${name}.setstormtime:
     description: Permite al jugador establecer el tiempo de la tormenta.
@@ -62,4 +114,43 @@ permissions:
     default: op
   ${name}.totemstatus:
     description: Permite al jugador ver el estado actual del totem.
+    default: op
+  ${name}.toggleblaze:
+    description: Permite al jugador cambiar el estado de inmunidad de los Blazes.
+    default: op
+  ${name}.blazestatus:
+    description: Permite al jugador ver el estado de inmunidad de los Blazes.
+    default: op
+  ${name}.setbeehostility:
+    description: Permite al jugador establecer la hostilidad de las abejas.
+    default: op
+  ${name}.setbeestrength:
+    description: Permite al jugador establecer la fuerza de las abejas.
+    default: op
+  ${name}.setcreeperexplosionspeed:
+    description: Permite al jugador establecer la velocidad de explosión de los Creepers.
+    default: op
+  ${name}.setelderguardianresistance:
+    description: Permite al jugador establecer la resistencia del Elder Guardian.
+    default: op
+  ${name}.setdrownedtrident:
+    description: Permite al jugador establecer si los Drowned tienen un tridente.
+    default: op
+  ${name}.setdrownedchanneling:
+    description: Permite al jugador establecer el nivel de channeling del tridente de los Drowned.
+    default: op
+  ${name}.setendermanspeed:
+    description: Permite al jugador establecer la velocidad del Enderman.
+    default: op
+  ${name}.setendermanstrength:
+    description: Permite al jugador establecer la fuerza del Enderman.
+    default: op
+  ${name}.setendermiteinvulnerability:
+    description: Permite al jugador establecer la invulnerabilidad del Endermite.
+    default: op
+  ${name}.setendermitestrength:
+    description: Permite al jugador establecer la fuerza del Endermite.
+    default: op
+  ${name}.setghastexplosionpower:
+    description: Permite al jugador establecer el poder de explosión del Ghast.
     default: op

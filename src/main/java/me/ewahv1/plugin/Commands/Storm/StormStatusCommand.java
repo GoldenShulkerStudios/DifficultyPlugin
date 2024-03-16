@@ -23,16 +23,12 @@ public class StormStatusCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             try {
-                // Obtiene una conexión a la base de datos
                 java.sql.Connection connection = Connection.getConnection();
 
-                // Crea un objeto Statement para enviar consultas SQL a la base de datos
                 Statement statement = connection.createStatement();
 
-                // Ejecuta la consulta SQL y recupera los resultados en un objeto ResultSet
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM StormSettings WHERE ID = 1");
 
-                // Itera a través del objeto ResultSet y recupera los valores de las variables
                 while (resultSet.next()) {
                     int stormTime = resultSet.getInt("StormTime");
                     stormListener.setStormTime(stormTime);

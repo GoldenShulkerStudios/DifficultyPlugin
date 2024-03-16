@@ -22,20 +22,14 @@ public class ResetStormCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             try {
-                // Obtiene una conexión a la base de datos
                 java.sql.Connection connection = Connection.getConnection();
-
-                // Crea un objeto PreparedStatement para enviar consultas SQL a la base de datos
                 PreparedStatement preparedStatement = connection.prepareStatement("UPDATE StormSettings SET StormTime = ?, BaseStormTime = ? WHERE ID = 1");
 
-                // Establece los valores de las variables en la consulta SQL
-                preparedStatement.setInt(1, 0); // Restablece el tiempo de la tormenta a 0
-                preparedStatement.setInt(2, 600); // Restablece el tiempo base de la tormenta a 10 minutos
+                preparedStatement.setInt(1, 0);
+                preparedStatement.setInt(2, 600);
 
-                // Ejecuta la consulta SQL
                 preparedStatement.executeUpdate();
 
-                // Actualiza las variables en el StormListener
                 stormListener.setStormTime(0);
                 stormListener.setBaseStormTime(600);
                 stormListener.hideBossBar();

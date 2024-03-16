@@ -27,7 +27,7 @@ public class StormStatusCommand implements CommandExecutor {
 
                 Statement statement = connection.createStatement();
 
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM StormSettings WHERE ID = 1");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM stormsettings WHERE ID = 1");
 
                 while (resultSet.next()) {
                     int stormTime = resultSet.getInt("StormTime");

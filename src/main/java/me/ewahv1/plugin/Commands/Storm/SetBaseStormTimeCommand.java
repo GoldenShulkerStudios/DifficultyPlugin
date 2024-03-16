@@ -28,7 +28,7 @@ public class SetBaseStormTimeCommand implements CommandExecutor {
 
                     java.sql.Connection connection = Connection.getConnection();
 
-                    PreparedStatement preparedStatement = connection.prepareStatement("UPDATE StormSettings SET BaseStormTime = ? WHERE ID = 1");
+                    PreparedStatement preparedStatement = connection.prepareStatement("UPDATE stormsettings SET BaseStormTime = ? WHERE ID = 1");
 
                     preparedStatement.setInt(1, baseStormTime);
 

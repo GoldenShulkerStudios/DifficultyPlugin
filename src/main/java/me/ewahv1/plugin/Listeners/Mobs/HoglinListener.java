@@ -1,7 +1,6 @@
 package me.ewahv1.plugin.Listeners.Mobs;
 
 import me.ewahv1.plugin.Database.Connection;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Hoglin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

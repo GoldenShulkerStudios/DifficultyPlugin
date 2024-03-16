@@ -23,7 +23,7 @@ public class ResetStormCommand implements CommandExecutor {
             Player player = (Player) sender;
             try {
                 java.sql.Connection connection = Connection.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement("UPDATE StormSettings SET StormTime = ?, BaseStormTime = ? WHERE ID = 1");
+                PreparedStatement preparedStatement = connection.prepareStatement("UPDATE stormsettings SET StormTime = ?, BaseStormTime = ? WHERE ID = 1");
 
                 preparedStatement.setInt(1, 0);
                 preparedStatement.setInt(2, 600);

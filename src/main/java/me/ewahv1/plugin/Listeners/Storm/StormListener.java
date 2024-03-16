@@ -48,7 +48,7 @@ public class StormListener implements Listener {
         try {
             java.sql.Connection connection = Connection.getConnection();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM StormSettings WHERE ID = 1");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM stormsettings WHERE ID = 1");
             while (resultSet.next()) {
                 stormTime = resultSet.getInt("StormTime");
                 baseStormTime = resultSet.getInt("BaseStormTime");
@@ -110,7 +110,7 @@ public class StormListener implements Listener {
                             java.sql.Connection connection = Connection.getConnection();
 
                             // Crea un objeto PreparedStatement para enviar consultas SQL a la base de datos
-                            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE StormSettings SET StormTime = ? WHERE ID = 1");
+                            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE stormsettings SET StormTime = ? WHERE ID = 1");
 
                             // Establece los valores de las variables en la consulta SQL
                             preparedStatement.setInt(1, stormTime); // Actualiza el tiempo de la tormenta

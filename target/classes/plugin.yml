@@ -3,7 +3,6 @@ description: This plugin is created for the Insomnia
 author: ewahv1
 main: me.ewahv1.plugin.Main
 version: 0.0.1
-url: https://github.com/2lstudios-mc/bukkit-boilerplate
 api-version: 1.20
 commands:
   setstormtime:
@@ -26,7 +25,6 @@ commands:
     description: Establece el tiempo base de la tormenta.
     usage: /<command> <segundos>
     permission: PluginDifficulty.setbasestormtime
-    
   toggletotem:
     description: Activa o desactiva la mecánica de failtotem.
     usage: /<command>
@@ -39,9 +37,8 @@ commands:
     description: Muestra el estado actual del totem.
     usage: /<command>
     permission: PluginDifficulty.totemstatus
-    
   BeeToggle:
-    description: Activa o desactiva la hostilidad de las abejas.
+    description: Establece la hostilidad de las abejas.
     usage: /<command>
     permission: PluginDifficulty.BeeToggle
   BeeSetStrength:
@@ -52,21 +49,19 @@ commands:
     description: Muestra el estado actual de las abejas.
     usage: /<command>
     permission: PluginDifficulty.BeeStatus
-
   DrownedToggleTrident:
-    description: Activa o desactiva la capacidad de los ahogados para tener tridentes.
+    description: Establece si los ahogados tienen un tridente.
     usage: /<command>
     permission: PluginDifficulty.DrownedToggleTrident
   DrownedStatus:
     description: Muestra el estado actual de los ahogados.
     usage: /<command>
     permission: PluginDifficulty.DrownedStatus
-
   EndermanSetSpeed:
     description: Establece la velocidad de los endermans.
     usage: /<command> <speed>
     permission: PluginDifficulty.EndermanSetSpeed
-  EndermanSetStrenght:
+  EndermanSetStrength:
     description: Establece la fuerza de los endermans.
     usage: /<command> <strength>
     permission: PluginDifficulty.EndermanSetStrength
@@ -74,16 +69,14 @@ commands:
     description: Muestra el estado actual de los endermans.
     usage: /<command>
     permission: PluginDifficulty.EndermanStatus
-
   BlazeToggle:
-    description: Activa o desactiva la hostilidad de los blazes.
+    description: Establece la hostilidad de los blazes.
     usage: /<command>
     permission: PluginDifficulty.BlazeToggle
   BlazeStatus:
     description: Muestra el estado actual de los blazes.
     usage: /<command>
     permission: PluginDifficulty.BlazeStatus
-
   CreeperSetExplosionSpeed:
     description: Establece la velocidad de explosión de los creepers.
     usage: /<command> <speed>
@@ -92,7 +85,6 @@ commands:
     description: Muestra el estado actual de los creepers.
     usage: /<command>
     permission: PluginDifficulty.CreeperStatus
-
   ElderGuardianSetResistance:
     description: Establece la resistencia de los guardianes ancianos.
     usage: /<command> <resistance>
@@ -101,12 +93,11 @@ commands:
     description: Muestra el estado actual de los guardianes ancianos.
     usage: /<command>
     permission: PluginDifficulty.ElderGuardianStatus
-
   EndermiteToggle:
-    description: Activa o desactiva la hostilidad de los endermits.
+    description: Establece la hostilidad de los endermits.
     usage: /<command>
     permission: PluginDifficulty.EndermiteToggle
-  EndermiteSetStrenght:
+  EndermiteSetStrength:
     description: Establece la fuerza de los endermits.
     usage: /<command> <strength>
     permission: PluginDifficulty.EndermiteSetStrength
@@ -114,7 +105,6 @@ commands:
     description: Muestra el estado actual de los endermits.
     usage: /<command>
     permission: PluginDifficulty.EndermiteStatus
-
   GhastSetExplosionPower:
     description: Establece el poder de explosión de los ghasts.
     usage: /<command> <power>
@@ -123,7 +113,6 @@ commands:
     description: Muestra el estado actual de los ghasts.
     usage: /<command>
     permission: PluginDifficulty.GhastStatus
-
   GuardianSetResistance:
     description: Establece la resistencia de los guardianes.
     usage: /<command> <resistance>
@@ -132,7 +121,6 @@ commands:
     description: Muestra el estado actual de los guardianes.
     usage: /<command>
     permission: PluginDifficulty.GuardianStatus
-
   HoglinSetKnockback:
     description: Establece el knockback de los hoglins.
     usage: /<command> <knockback>
@@ -141,20 +129,18 @@ commands:
     description: Muestra el estado actual de los hoglins.
     usage: /<command>
     permission: PluginDifficulty.HoglinStatus
-
   HuskSetAxe:
     description: Establece el hacha de los husks.
     usage: /<command> <axe>
     permission: PluginDifficulty.HuskSetAxe
   HuskSetSharpness:
-    description: Establece la sharpness de los husks.
+    description: Establece el sharpness de los husks.
     usage: /<command> <sharpness>
     permission: PluginDifficulty.HuskSetSharpness
   HuskStatus:
     description: Muestra el estado actual de los husks.
     usage: /<command>
     permission: PluginDifficulty.HuskStatus
-
   MagmaCubeSetKnockback:
     description: Establece el knockback de los cubos de magma.
     usage: /<command> <knockback>
@@ -167,7 +153,6 @@ commands:
     description: Muestra el estado actual de los cubos de magma.
     usage: /<command>
     permission: PluginDifficulty.MagmaCubeStatus
-
   PhantomSetSize:
     description: Establece el tamaño de los phantoms.
     usage: /<command> <size>
@@ -176,7 +161,6 @@ commands:
     description: Muestra el estado actual de los phantoms.
     usage: /<command>
     permission: PluginDifficulty.PhantomStatus
-
   PiglinBruteSetSpawn:
     description: Establece la capacidad de spawneo de los piglin brutes.
     usage: /<command> <spawn>
@@ -185,7 +169,6 @@ commands:
     description: Muestra el estado actual de los piglin brutes.
     usage: /<command>
     permission: PluginDifficulty.PiglinBruteStatus
-
 permissions:
   PluginDifficulty.setstormtime:
     description: Permite al jugador establecer el tiempo de la tormenta.
@@ -202,7 +185,6 @@ permissions:
   PluginDifficulty.setbasestormtime:
     description: Permite al jugador establecer el tiempo base de la tormenta.
     default: op
-
   PluginDifficulty.toggletotem:
     description: Permite al jugador activar o desactivar la mecánica de failtotem.
     default: op
@@ -212,24 +194,21 @@ permissions:
   PluginDifficulty.totemstatus:
     description: Permite al jugador ver el estado actual del totem.
     default: op
-    
   PluginDifficulty.BeeToggle:
-    description: Permite al jugador activar o desactivar la hostilidad de las abejas.
+    description: Permite al jugador establecer la hostilidad de las abejas.
     default: op
   PluginDifficulty.BeeSetStrength:
-    description: Permite al jugador establecer la fuerza de las abejas.
+    description: Permite al jugador establecer el nivel de fuerza de las abejas.
     default: op
   PluginDifficulty.BeeStatus:
     description: Permite al jugador ver el estado actual de las abejas.
     default: op
-
   PluginDifficulty.DrownedToggleTrident:
-    description: Permite al jugador activar o desactivar la capacidad de los ahogados para lanzar tridentes.
+    description: Permite al jugador establecer si los ahogados tienen un tridente.
     default: op
   PluginDifficulty.DrownedStatus:
     description: Permite al jugador ver el estado actual de los ahogados.
     default: op
-
   PluginDifficulty.EndermanSetSpeed:
     description: Permite al jugador establecer la velocidad de los endermans.
     default: op
@@ -239,30 +218,26 @@ permissions:
   PluginDifficulty.EndermanStatus:
     description: Permite al jugador ver el estado actual de los endermans.
     default: op
-
   PluginDifficulty.BlazeToggle:
-    description: Permite al jugador activar o desactivar la hostilidad de los blazes.
+    description: Permite al jugador establecer la hostilidad de los blazes.
     default: op
   PluginDifficulty.BlazeStatus:
     description: Permite al jugador ver el estado actual de los blazes.
     default: op
-
   PluginDifficulty.CreeperSetExplosionSpeed:
     description: Permite al jugador establecer la velocidad de explosión de los creepers.
     default: op
   PluginDifficulty.CreeperStatus:
     description: Permite al jugador ver el estado actual de los creepers.
     default: op
-
   PluginDifficulty.ElderGuardianSetResistance:
     description: Permite al jugador establecer la resistencia de los guardianes ancianos.
     default: op
   PluginDifficulty.ElderGuardianStatus:
     description: Permite al jugador ver el estado actual de los guardianes ancianos.
     default: op
-
   PluginDifficulty.EndermiteToggle:
-    description: Permite al jugador activar o desactivar la hostilidad de los endermits.
+    description: Permite al jugador establecer la hostilidad de los endermits.
     default: op
   PluginDifficulty.EndermiteSetStrength:
     description: Permite al jugador establecer la fuerza de los endermits.
@@ -270,38 +245,33 @@ permissions:
   PluginDifficulty.EndermiteStatus:
     description: Permite al jugador ver el estado actual de los endermits.
     default: op
-
   PluginDifficulty.GhastSetExplosionPower:
     description: Permite al jugador establecer el poder de explosión de los ghasts.
     default: op
   PluginDifficulty.GhastStatus:
     description: Permite al jugador ver el estado actual de los ghasts.
     default: op
-
   PluginDifficulty.GuardianSetResistance:
     description: Permite al jugador establecer la resistencia de los guardianes.
     default: op
   PluginDifficulty.GuardianStatus:
     description: Permite al jugador ver el estado actual de los guardianes.
     default: op
-
   PluginDifficulty.HoglinSetKnockback:
     description: Permite al jugador establecer el knockback de los hoglins.
     default: op
   PluginDifficulty.HoglinStatus:
     description: Permite al jugador ver el estado actual de los hoglins.
     default: op
-
   PluginDifficulty.HuskSetAxe:
     description: Permite al jugador establecer el hacha de los husks.
     default: op
   PluginDifficulty.HuskSetSharpness:
-    description: Permite al jugador establecer la sharpness de los husks.
+    description: Permite al jugador establecer el sharpness de los husks.
     default: op
   PluginDifficulty.HuskStatus:
     description: Permite al jugador ver el estado actual de los husks.
     default: op
-
   PluginDifficulty.MagmaCubeSetKnockback:
     description: Permite al jugador establecer el knockback de los cubos de magma.
     default: op
@@ -311,14 +281,12 @@ permissions:
   PluginDifficulty.MagmaCubeStatus:
     description: Permite al jugador ver el estado actual de los cubos de magma.
     default: op
-
   PluginDifficulty.PhantomSetSize:
     description: Permite al jugador establecer el tamaño de los phantoms.
     default: op
   PluginDifficulty.PhantomStatus:
     description: Permite al jugador ver el estado actual de los phantoms.
     default: op
-
   PluginDifficulty.PiglinBruteSetSpawn:
     description: Permite al jugador establecer la capacidad de spawneo de los piglin brutes.
     default: op

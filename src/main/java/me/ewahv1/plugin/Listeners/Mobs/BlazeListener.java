@@ -18,10 +18,10 @@ public class BlazeListener implements Listener {
 
         if (entity instanceof Blaze) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Inmulnerability FROM blazesettings WHERE ID = 1");
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Invulnerability FROM blazesettings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    ((Blaze) entity).setInvulnerable(rs.getBoolean("Inmulnerability"));
+                    ((Blaze) entity).setInvulnerable(rs.getBoolean("Invulnerability"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -46,11 +46,11 @@ public class Main extends JavaPlugin {
         getCommand("ElderGuardianStatus").setExecutor(new ElderGuardianCommand());
 
         getCommand("EndermanSetSpeed").setExecutor(new EndermanCommand());
-        getCommand("EndermanSetStrenght").setExecutor(new EndermanCommand());
+        getCommand("EndermanSetStrength").setExecutor(new EndermanCommand());
         getCommand("EndermanStatus").setExecutor(new EndermanCommand());
 
         getCommand("EndermiteToggle").setExecutor(new EndermiteCommand());
-        getCommand("EndermiteSetStrenght").setExecutor(new EndermiteCommand());
+        getCommand("EndermiteSetStrength").setExecutor(new EndermiteCommand());
         getCommand("EndermiteStatus").setExecutor(new EndermiteCommand());
 
         getCommand("GhastSetExplosionPower").setExecutor(new GhastCommand());
@@ -60,21 +60,21 @@ public class Main extends JavaPlugin {
         getCommand("GuardianStatus").setExecutor(new GuardianCommand());
 
         getCommand("HoglinSetKnockback").setExecutor(new HoglinCommand());
-        getCommand("HoglinStatus").setExecutor(new GuardianCommand());
+        getCommand("HoglinStatus").setExecutor(new HoglinCommand());
 
         getCommand("HuskSetAxe").setExecutor(new HuskCommand());
         getCommand("HuskSetSharpness").setExecutor(new HuskCommand());
-        getCommand("HuskStatus").setExecutor(new GuardianCommand());
+        getCommand("HuskStatus").setExecutor(new HuskCommand());
 
         getCommand("MagmaCubeSetKnockback").setExecutor(new MagmaCubeCommand());
-        getCommand("MagmaCubeSetStrenght").setExecutor(new MagmaCubeCommand());
-        getCommand("MagmaCubeStatus").setExecutor(new GuardianCommand());
+        getCommand("MagmaCubeSetStrength").setExecutor(new MagmaCubeCommand());
+        getCommand("MagmaCubeStatus").setExecutor(new MagmaCubeCommand());
 
         getCommand("PhantomSetSize").setExecutor(new PhantomCommand());
-        getCommand("PhantomStatus").setExecutor(new GuardianCommand());
+        getCommand("PhantomStatus").setExecutor(new PhantomCommand());
 
         getCommand("PiglinBruteSetSpawn").setExecutor(new PiglinBruteCommand());
-        getCommand("PiglinBruteStatus").setExecutor(new GuardianCommand());
+        getCommand("PiglinBruteStatus").setExecutor(new PiglinBruteCommand());
 
         getServer().getPluginManager().registerEvents(new BlazeListener(), this);
         getServer().getPluginManager().registerEvents(new BeeListener(), this);

@@ -16,7 +16,7 @@ public class PiglinBruteListener implements Listener {
     public void onEntitySpawn(CreatureSpawnEvent event) {
         Entity entity = event.getEntity();
 
-        if (entity instanceof PiglinBrute) {
+        if (entity instanceof PiglinBrute && event.getSpawnReason() == CreatureSpawnEvent.SpawnReason.NATURAL) {
             try {
                 PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Spawn FROM piglinbrutesettings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
@@ -34,3 +34,4 @@ public class PiglinBruteListener implements Listener {
         }
     }
 }
+

@@ -19,6 +19,10 @@ public class PiglinBruteCommand implements CommandExecutor {
                     return true;
                 }
                 int spawn = Integer.parseInt(args[0]);
+                if (spawn > 5) {
+                    sender.sendMessage("No está permitido subir el valor a más de 5");
+                    return true;
+                }
                 PreparedStatement ps = Connection.getConnection().prepareStatement("UPDATE piglinbrutesettings SET Spawn = ? WHERE ID = 1");
                 ps.setInt(1, spawn);
                 ps.executeUpdate();

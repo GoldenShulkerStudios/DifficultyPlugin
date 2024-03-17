@@ -17,7 +17,6 @@ public class Main extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(stormListener, this);
         getServer().getPluginManager().registerEvents(failTotemListener, this);
-        getServer().getPluginManager().registerEvents(new AllMobsListener(), this);
 
         getCommand("setstormtime").setExecutor(new SetStormTimeCommand(stormListener));
         getCommand("togglestorm").setExecutor(new ToggleStormCommand(stormListener));
@@ -66,6 +65,9 @@ public class Main extends JavaPlugin {
         getCommand("HuskSetSharpness").setExecutor(new HuskCommand());
         getCommand("HuskStatus").setExecutor(new HuskCommand());
 
+        getCommand("IronGolemToggle").setExecutor(new IronGolemCommand());
+        getCommand("IronGolemStatus").setExecutor(new IronGolemCommand());
+
         getCommand("MagmaCubeSetKnockback").setExecutor(new MagmaCubeCommand());
         getCommand("MagmaCubeSetStrength").setExecutor(new MagmaCubeCommand());
         getCommand("MagmaCubeStatus").setExecutor(new MagmaCubeCommand());
@@ -76,8 +78,21 @@ public class Main extends JavaPlugin {
         getCommand("PiglinBruteSetSpawn").setExecutor(new PiglinBruteCommand());
         getCommand("PiglinBruteStatus").setExecutor(new PiglinBruteCommand());
 
-        getServer().getPluginManager().registerEvents(new BlazeListener(), this);
+        getCommand("PiglinSetSwordMaterial").setExecutor(new PiglinCommand());
+        getCommand("PiglinSetSwordMaterial").setExecutor(new PiglinCommand());
+        getCommand("PiglinSetSwordMaterial").setExecutor(new PiglinCommand());
+        getCommand("PiglinSetSwordMaterial").setExecutor(new PiglinCommand());
+
+        getCommand("PillagerSetDamage").setExecutor(new PillagerCommand());
+        getCommand("PiglinSetQuickCharge").setExecutor(new PillagerCommand());
+        getCommand("PiglinStatus").setExecutor(new PillagerCommand());
+
+        getCommand("ZombifiedPiglinSetSpeed").setExecutor(new ZombifiedPiglinCommand());
+        getCommand("ZombifiedPiglinToggle").setExecutor(new ZombifiedPiglinCommand());
+        getCommand("ZombifiedPiglinSetFireAspect").setExecutor(new ZombifiedPiglinCommand());
+
         getServer().getPluginManager().registerEvents(new BeeListener(), this);
+        getServer().getPluginManager().registerEvents(new BlazeListener(), this);
         getServer().getPluginManager().registerEvents(new CreeperListener(this), this);
         getServer().getPluginManager().registerEvents(new DrownedListener(), this);
         getServer().getPluginManager().registerEvents(new ElderGuardianListener(), this);
@@ -87,14 +102,12 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GuardianListener(), this);
         getServer().getPluginManager().registerEvents(new HoglinListener(), this);
         getServer().getPluginManager().registerEvents(new HuskListener(), this);
+        getServer().getPluginManager().registerEvents(new IronGolemListener(), this);
         getServer().getPluginManager().registerEvents(new MagmaCubeListener(), this);
         getServer().getPluginManager().registerEvents(new PhantomListener(), this);
         getServer().getPluginManager().registerEvents(new PiglinBruteListener(), this);
+        getServer().getPluginManager().registerEvents(new PiglinListener(), this);
         getServer().getPluginManager().registerEvents(new PillagerListener(), this);
-        getServer().getPluginManager().registerEvents(new SkeletonListener(), this);
-        getServer().getPluginManager().registerEvents(new VexListener(), this);
-        getServer().getPluginManager().registerEvents(new VindicatorListener(), this);
-        getServer().getPluginManager().registerEvents(new WitherSkeletonListener(), this);
-        getServer().getPluginManager().registerEvents(new ZombieListener(), this);
+        getServer().getPluginManager().registerEvents(new ZombifiedPiglinListener(), this);
     }
 }

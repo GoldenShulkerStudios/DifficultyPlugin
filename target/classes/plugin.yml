@@ -141,6 +141,14 @@ commands:
     description: Muestra el estado actual de los husks.
     usage: /<command>
     permission: PluginDifficulty.HuskStatus
+  IronGolemToggle:
+    description: Cambia la resistencia al fuego del Iron Golem.
+    usage: /<command>
+    permission: PluginDifficulty.IronGolemToggle
+  IronGolemStatus:
+    description: Muestra el estado de la resistencia al fuego del Iron Golem.
+    usage: /<command>
+    permission: PluginDifficulty.IronGolemStatus
   MagmaCubeSetKnockback:
     description: Establece el knockback de los cubos de magma.
     usage: /<command> <knockback>
@@ -169,6 +177,50 @@ commands:
     description: Muestra el estado actual de los piglin brutes.
     usage: /<command>
     permission: PluginDifficulty.PiglinBruteStatus
+  PiglinSetSwordMaterial:
+    description: Establece el material de la espada del Piglin.
+    usage: /<command> <material>
+    permission: PluginDifficulty.PiglinSetSwordMaterial
+  PiglinSetQuickCharge:
+    description: Establece el nivel de Quick Charge de la ballesta del Piglin.
+    usage: /<command> <nivel>
+    permission: PluginDifficulty.PiglinSetQuickCharge
+  PiglinStatus:
+    description: Muestra el estado actual del Piglin.
+    usage: /<command>
+    permission: PluginDifficulty.PiglinStatus
+  PillagerSetDamage:
+    description: Establece el multiplicador de daño del Pillager.
+    usage: /<command> <multiplicador>
+    permission: PluginDifficulty.PillagerSetDamage
+  PillagerSetCriticalPorcentage:
+    description: Establece el porcentaje crítico del Pillager.
+    usage: /<command> <porcentaje>
+    permission: PluginDifficulty.PillagerSetCriticalPorcentage
+  PillagerSetInstantDamageArrow:
+    description: Establece el daño instantáneo de la flecha del Pillager.
+    usage: /<command> <daño>
+    permission: PluginDifficulty.PillagerSetInstantDamageArrow
+  PillagerStatus:
+    description: Muestra el estado actual del Pillager.
+    usage: /<command>
+    permission: PluginDifficulty.PillagerStatus
+  ZombifiedPiglinSetSpeed:
+    description: Establece la velocidad del Zombified Piglin.
+    usage: /<command> <velocidad>
+    permission: PluginDifficulty.ZombifiedPiglinSetSpeed
+  ZombifiedPiglinToggle:
+    description: Cambia el arma del Zombified Piglin.
+    usage: /<command>
+    permission: PluginDifficulty.ZombifiedPiglinToggle
+  ZombifiedPiglinSetFireAspect:
+    description: Establece el nivel de Fire Aspect de la Blaze Rod del Zombified Piglin.
+    usage: /<command> <nivel>
+    permission: PluginDifficulty.ZombifiedPiglinSetFireAspect
+  ZombifiedPiglinStatus:
+    description: Muestra el estado actual del Zombified Piglin.
+    usage: /<command>
+    permission: PluginDifficulty.ZombifiedPiglinStatus
 permissions:
   PluginDifficulty.setstormtime:
     description: Permite al jugador establecer el tiempo de la tormenta.
@@ -272,6 +324,12 @@ permissions:
   PluginDifficulty.HuskStatus:
     description: Permite al jugador ver el estado actual de los husks.
     default: op
+  PluginDifficulty.IronGolemToggle:
+    description: Permite al jugador cambiar la resistencia al fuego del Iron Golem.
+    default: op
+  PluginDifficulty.IronGolemStatus:
+    description: Permite al jugador ver el estado de la resistencia al fuego del Iron Golem.
+    default: op
   PluginDifficulty.MagmaCubeSetKnockback:
     description: Permite al jugador establecer el knockback de los cubos de magma.
     default: op
@@ -292,4 +350,40 @@ permissions:
     default: op
   PluginDifficulty.PiglinBruteStatus:
     description: Permite al jugador ver el estado actual de los piglin brutes.
+    default: op
+  PluginDifficulty.PiglinSetSwordMaterial:
+    description: Permite al jugador establecer el material de la espada del Piglin.
+    default: op
+  PluginDifficulty.PiglinSetQuickCharge:
+    description: Permite al jugador establecer el nivel de Quick Charge de la ballesta del Piglin.
+    default: op
+  PluginDifficulty.PiglinStatus:
+    description: Permite al jugador ver el estado actual del Piglin.
+    default: op
+  PluginDifficulty.PillagerSetDamage:
+    description: Permite al jugador etablecer la la cantidad de daño que hacen los pillager
+    default: op
+  PluginDifficulty.PillagerSetDamage:
+    description: Permite al jugador establecer el multiplicador de daño del Pillager.
+    default: op
+  PluginDifficulty.PillagerSetCriticalPorcentage:
+    description: Permite al jugador establecer el porcentaje crítico del Pillager.
+    default: op
+  PluginDifficulty.PillagerSetInstantDamageArrow:
+    description: Permite al jugador establecer el daño instantáneo de la flecha del Pillager.
+    default: op
+  PluginDifficulty.PillagerStatus:
+    description: Permite al jugador ver el estado actual del Pillager.
+    default: op
+  PluginDifficulty.ZombifiedPiglinSetSpeed:
+    description: Permite al jugador establecer la velocidad del Zombified Piglin.
+    default: op
+  PluginDifficulty.ZombifiedPiglinToggle:
+    description: Permite al jugador cambiar el arma del Zombified Piglin.
+    default: op
+  PluginDifficulty.ZombifiedPiglinSetFireAspect:
+    description: Permite al jugador establecer el nivel de Fire Aspect de la Blaze Rod del Zombified Piglin.
+    default: op
+  PluginDifficulty.ZombifiedPiglinStatus:
+    description: Permite al jugador ver el estado actual del Zombified Piglin.
     default: op

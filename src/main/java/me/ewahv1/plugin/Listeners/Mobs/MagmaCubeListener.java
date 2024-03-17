@@ -27,7 +27,8 @@ public class MagmaCubeListener implements Listener {
                     MagmaCube magmaCube = (MagmaCube) event.getDamager();
                     if (knockback > 0) {
                         Vector velocity = event.getEntity().getVelocity();
-                        velocity.setY(knockback);
+                        Vector knockbackDirection = event.getDamager().getLocation().getDirection().multiply(knockback);
+                        velocity.add(knockbackDirection);
                         event.getEntity().setVelocity(velocity);
                     }
                     if (strength > 0) {

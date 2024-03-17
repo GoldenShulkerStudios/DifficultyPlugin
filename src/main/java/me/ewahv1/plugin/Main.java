@@ -17,6 +17,7 @@ public class Main extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(stormListener, this);
         getServer().getPluginManager().registerEvents(failTotemListener, this);
+        getServer().getPluginManager().registerEvents(new AllMobsListener(), this);
 
         getCommand("setstormtime").setExecutor(new SetStormTimeCommand(stormListener));
         getCommand("togglestorm").setExecutor(new ToggleStormCommand(stormListener));
@@ -28,40 +29,52 @@ public class Main extends JavaPlugin {
         getCommand("setfailtotem").setExecutor(new SetFailTotemCommand(failTotemListener));
         getCommand("totemstatus").setExecutor(new TotemStatusCommand(failTotemListener));
 
-        getCommand("toggleblaze").setExecutor(new BlazeCommand());
-        getCommand("blazestatus").setExecutor(new BlazeCommand());
+        getCommand("BeeToggle").setExecutor(new BeeCommand());
+        getCommand("BeeSetStrength").setExecutor(new BeeCommand());
+        getCommand("BeeStatus").setExecutor(new BeeCommand());
 
-        getCommand("setbeehostility").setExecutor(new BeeCommand());
-        getCommand("setbeestrength").setExecutor(new BeeCommand());
+        getCommand("BlazeToggle").setExecutor(new BlazeCommand());
+        getCommand("BlazeStatus").setExecutor(new BlazeCommand());
 
-        getCommand("setcreeperexplosionspeed").setExecutor(new CreeperCommand());
+        getCommand("CreeperSetExplosionSpeed").setExecutor(new CreeperCommand());
+        getCommand("CreeperStatus").setExecutor(new CreeperCommand());
 
-        getCommand("setdrownedtrident").setExecutor(new DrownedCommand());
-        getCommand("setdrownedchanneling").setExecutor(new DrownedCommand());
+        getCommand("DrownedToggleTrident").setExecutor(new DrownedCommand());
+        getCommand("DrownedStatus").setExecutor(new DrownedCommand());
 
-        getCommand("setelderguardianresistance").setExecutor(new ElderGuardianCommand());
+        getCommand("ElderGuardianSetResistance").setExecutor(new ElderGuardianCommand());
+        getCommand("ElderGuardianStatus").setExecutor(new ElderGuardianCommand());
 
-        getCommand("setendermanspeed").setExecutor(new EndermanCommand());
-        getCommand("setendermanstrength").setExecutor(new EndermanCommand());
+        getCommand("EndermanSetSpeed").setExecutor(new EndermanCommand());
+        getCommand("EndermanSetStrenght").setExecutor(new EndermanCommand());
+        getCommand("EndermanStatus").setExecutor(new EndermanCommand());
 
-        getCommand("setendermiteinvulnerability").setExecutor(new EndermiteCommand());
-        getCommand("setendermitestrength").setExecutor(new EndermiteCommand());
+        getCommand("EndermiteToggle").setExecutor(new EndermiteCommand());
+        getCommand("EndermiteSetStrenght").setExecutor(new EndermiteCommand());
+        getCommand("EndermiteStatus").setExecutor(new EndermiteCommand());
 
-        getCommand("setghastexplosionpower").setExecutor(new GhastCommand());
+        getCommand("GhastSetExplosionPower").setExecutor(new GhastCommand());
+        getCommand("GhastStatus").setExecutor(new GhastCommand());
 
-        getCommand("setguardianresistance").setExecutor(new GuardianCommand());
+        getCommand("GuardianSetResistance").setExecutor(new GuardianCommand());
+        getCommand("GuardianStatus").setExecutor(new GuardianCommand());
 
-        getCommand("sethoglinknockback").setExecutor(new HoglinCommand());
+        getCommand("HoglinSetKnockback").setExecutor(new HoglinCommand());
+        getCommand("HoglinStatus").setExecutor(new GuardianCommand());
 
-        getCommand("sethuskaxe").setExecutor(new HuskCommand());
-        getCommand("sethusksharpness").setExecutor(new HuskCommand());
+        getCommand("HuskSetAxe").setExecutor(new HuskCommand());
+        getCommand("HuskSetSharpness").setExecutor(new HuskCommand());
+        getCommand("HuskStatus").setExecutor(new GuardianCommand());
 
-        getCommand("setmagmacubeknockback").setExecutor(new MagmaCubeCommand());
-        getCommand("setmagmacubestrength").setExecutor(new MagmaCubeCommand());
+        getCommand("MagmaCubeSetKnockback").setExecutor(new MagmaCubeCommand());
+        getCommand("MagmaCubeSetStrenght").setExecutor(new MagmaCubeCommand());
+        getCommand("MagmaCubeStatus").setExecutor(new GuardianCommand());
 
-        getCommand("setphantomsize").setExecutor(new PhantomCommand());
+        getCommand("PhantomSetSize").setExecutor(new PhantomCommand());
+        getCommand("PhantomStatus").setExecutor(new GuardianCommand());
 
-        getCommand("setpiglinbrutespawn").setExecutor(new PiglinBruteCommand());
+        getCommand("PiglinBruteSetSpawn").setExecutor(new PiglinBruteCommand());
+        getCommand("PiglinBruteStatus").setExecutor(new GuardianCommand());
 
         getServer().getPluginManager().registerEvents(new BlazeListener(), this);
         getServer().getPluginManager().registerEvents(new BeeListener(), this);

@@ -9,7 +9,7 @@ public class Connection {
     public static java.sql.Connection getConnection() {
         try {
             if (connection == null) {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/InsomniaDB", "root", "*");
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/InsomniaDB", "root", "70284412B*");
             }
         } catch (Exception e) {
             e.printStackTrace();

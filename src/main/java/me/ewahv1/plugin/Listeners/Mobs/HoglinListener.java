@@ -22,7 +22,8 @@ public class HoglinListener implements Listener {
                 if (rs.next()) {
                     int knockback = rs.getInt("Knockback");
                     Vector velocity = event.getEntity().getVelocity();
-                    velocity.setY(knockback);
+                    Vector knockbackDirection = event.getDamager().getLocation().getDirection().multiply(knockback);
+                    velocity.add(knockbackDirection);
                     event.getEntity().setVelocity(velocity);
                 }
             } catch (Exception e) {

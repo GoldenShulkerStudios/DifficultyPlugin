@@ -12,33 +12,33 @@ public class BlazeCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("toggleblaze")) {
+        if (command.getName().equalsIgnoreCase("BlazeToggle")) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Inmulnerability FROM blazesettings WHERE ID = 1");
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Invulnerability FROM blazesettings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    boolean currentInvulnerability = rs.getBoolean("Inmulnerability");
+                    boolean currentInvulnerability = rs.getBoolean("Invulnerability");
                     boolean newInvulnerability = !currentInvulnerability;
-                    ps = Connection.getConnection().prepareStatement("UPDATE blazesettings SET Inmulnerability = ? WHERE ID = 1");
+                    ps = Connection.getConnection().prepareStatement("UPDATE blazesettings SET Invulnerability = ? WHERE ID = 1");
                     ps.setBoolean(1, newInvulnerability);
                     ps.executeUpdate();
-                    sender.sendMessage("La invulnerabilidad del Blaze se establecio en " + newInvulnerability);
+                    sender.sendMessage("La invulnerabilidad del Blaze se ha establecido en " + newInvulnerability);
                 }
             } catch (Exception e) {
-                sender.sendMessage("Error toggling Blaze invulnerability");
+                sender.sendMessage("Error al cambiar la invulnerabilidad del Blaze. Uso correcto: /BlazeToggle");
                 e.printStackTrace();
             }
             return true;
-        } else if (command.getName().equalsIgnoreCase("blazestatus")) {
+        } else if (command.getName().equalsIgnoreCase("BlazeStatus")) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Inmulnerability FROM blazesettings WHERE ID = 1");
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Invulnerability FROM blazesettings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    boolean invulnerability = rs.getBoolean("Inmulnerability");
+                    boolean invulnerability = rs.getBoolean("Invulnerability");
                     sender.sendMessage("La invulnerabilidad del Blaze está actualmente en " + invulnerability);
                 }
             } catch (Exception e) {
-                sender.sendMessage("Error getting Blaze invulnerability status");
+                sender.sendMessage("Error al obtener el estado de invulnerabilidad del Blaze. Uso correcto: /BlazeStatus");
                 e.printStackTrace();
             }
             return true;

@@ -22,8 +22,10 @@ public class PiglinBruteListener implements Listener {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int spawn = rs.getInt("Spawn");
-                    for (int i = 1; i < spawn; i++) {
-                        entity.getWorld().spawnEntity(entity.getLocation(), entity.getType());
+                    if (spawn > 0) {
+                        for (int i = 1; i < spawn; i++) {
+                            entity.getWorld().spawnEntity(entity.getLocation(), entity.getType());
+                        }
                     }
                 }
             } catch (Exception e) {

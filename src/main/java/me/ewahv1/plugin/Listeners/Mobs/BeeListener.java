@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,6 +51,9 @@ public class BeeListener implements Listener {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int strength = rs.getInt("Strength");
+                    if (strength > 0) {
+                        ((Bee) event.getDamager()).addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, strength - 1, false, false));
+                    }
                     event.setDamage(event.getDamage() * strength);
                 }
             } catch (Exception e) {

@@ -11,53 +11,39 @@ import org.bukkit.inventory.ItemStack;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PiglinListener implements Listener {
+
     @EventHandler
-    public void onPiglinSpawn(EntitySpawnEvent event) {
+    public void onEntitySpawn(EntitySpawnEvent event) {
         if (event.getEntity() instanceof Piglin) {
             Piglin piglin = (Piglin) event.getEntity();
             try {
-                PreparedStatement psSword = Connection.getConnection().prepareStatement("SELECT SwordMaterial FROM piglinsettings WHERE ID = 1");
-                ResultSet rsSword = psSword.executeQuery();
-                if (rsSword.next()) {
-                    int swordMaterial = rsSword.getInt("SwordMaterial");
-                    Material material;
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT SwordMaterial, QuickCharge FROM piglin_settings WHERE ID = ?");
+                ps.setInt(1, piglin.getEntityId());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    int swordMaterial = rs.getInt("SwordMaterial");
+                    int quickCharge = rs.getInt("QuickCharge");
+                    Material material = null;
                     switch (swordMaterial) {
-                        case 1:
-                            material = Material.WOODEN_SWORD;
-                            break;
-                        case 2:
-                            material = Material.STONE_SWORD;
-                            break;
-                        case 3:
-                            material = Material.IRON_SWORD;
-                            break;
-                        case 4:
-                            material = Material.DIAMOND_SWORD;
-                            break;
-                        case 5:
-                            material = Material.NETHERITE_SWORD;
-                            break;
-                        default:
-                            material = null;
+                        case 1: material = Material.WOODEN_SWORD; break;
+                        case 2: material = Material.STONE_SWORD; break;
+                        case 3: material = Material.GOLDEN_SWORD; break;
+                        case 4: material = Material.IRON_SWORD; break;
+                        case 5: material = Material.DIAMOND_SWORD; break;
+                        case 6: material = Material.NETHERITE_SWORD; break;
                     }
-                    if (material != null) {
+                    if (piglin.getEquipment().getItemInMainHand().getType() == Material.CROSSBOW && quickCharge > 0) {
+                        ItemStack crossbow = piglin.getEquipment().getItemInMainHand();
+                        crossbow.addEnchantment(Enchantment.QUICK_CHARGE, quickCharge);
+                        piglin.getEquipment().setItemInMainHand(crossbow);
+                    } else if (material != null) {
                         piglin.getEquipment().setItemInMainHand(new ItemStack(material));
                     }
                 }
-
-                PreparedStatement psQuickCharge = Connection.getConnection().prepareStatement("SELECT QuickCharge FROM piglinsettings WHERE ID = 1");
-                ResultSet rsQuickCharge = psQuickCharge.executeQuery();
-                if (rsQuickCharge.next()) {
-                    int quickCharge = rsQuickCharge.getInt("QuickCharge");
-                    if (quickCharge > 0) {
-                        ItemStack crossbow = new ItemStack(Material.CROSSBOW);
-                        crossbow.addUnsafeEnchantment(Enchantment.QUICK_CHARGE, quickCharge);
-                        piglin.getEquipment().setItemInOffHand(crossbow);
-                    }
-                }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

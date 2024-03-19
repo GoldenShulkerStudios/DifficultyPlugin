@@ -10,6 +10,7 @@ import org.bukkit.util.Vector;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class HoglinListener implements Listener {
 
@@ -17,16 +18,17 @@ public class HoglinListener implements Listener {
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Hoglin && event.getEntity() instanceof Player) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Knockback FROM hoglinsettings WHERE ID = 1");
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Punch FROM hoglin_settings WHERE ID = ?");
+                ps.setInt(1, ((Hoglin) event.getDamager()).getEntityId());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    int knockback = rs.getInt("Knockback");
+                    int punch = rs.getInt("Punch");
                     Vector velocity = event.getEntity().getVelocity();
-                    Vector knockbackDirection = event.getDamager().getLocation().getDirection().multiply(knockback);
-                    velocity.add(knockbackDirection);
+                    Vector punchDirection = event.getDamager().getLocation().getDirection().multiply(punch);
+                    velocity.add(punchDirection);
                     event.getEntity().setVelocity(velocity);
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

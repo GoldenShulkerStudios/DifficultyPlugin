@@ -1,16 +1,18 @@
 package me.ewahv1.plugin.Listeners.Mobs;
 
 import me.ewahv1.plugin.Database.Connection;
-import org.bukkit.Material;
 import org.bukkit.entity.Drowned;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DrownedListener implements Listener {
 
@@ -20,17 +22,22 @@ public class DrownedListener implements Listener {
 
         if (entity instanceof Drowned) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Trident FROM drownedsettings WHERE ID = 1");
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Trident, Channeling FROM drowned_settings WHERE ID = ?");
+                ps.setInt(1, entity.getEntityId());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     boolean trident = rs.getBoolean("Trident");
+                    boolean channeling = rs.getBoolean("Channeling");
                     Drowned drowned = (Drowned) entity;
                     if (trident) {
                         ItemStack tridentItem = new ItemStack(Material.TRIDENT);
+                        if (channeling) {
+                            tridentItem.addEnchantment(Enchantment.CHANNELING, 1);
+                        }
                         drowned.getEquipment().setItemInMainHand(tridentItem);
                     }
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

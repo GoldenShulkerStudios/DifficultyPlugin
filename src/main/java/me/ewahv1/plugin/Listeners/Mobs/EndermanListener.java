@@ -11,6 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class EndermanListener implements Listener {
 
@@ -20,7 +21,8 @@ public class EndermanListener implements Listener {
 
         if (entity instanceof Enderman) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Speed, Strength FROM endermansettings WHERE ID = 1");
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Speed, Strength FROM enderman_settings WHERE ID = ?");
+                ps.setInt(1, entity.getEntityId());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int speed = rs.getInt("Speed");
@@ -33,7 +35,7 @@ public class EndermanListener implements Listener {
                         enderman.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, strength - 1));
                     }
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

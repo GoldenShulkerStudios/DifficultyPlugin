@@ -36,11 +36,13 @@ public class GhastListener implements Listener {
                 Fireball fireball = (Fireball) entityDamageByEntityEvent.getDamager();
                 if (fireball.getShooter() instanceof Ghast) {
                     try {
-                        PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT ExplosionPower FROM ghastsettings WHERE ID = 1");
+                        PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT ExplosionPower FROM ghast_settings WHERE ID = 1");
                         ResultSet rs = ps.executeQuery();
                         if (rs.next()) {
                             int explosionPower = rs.getInt("ExplosionPower");
-                            event.setDamage(event.getDamage() * explosionPower);
+                            if (explosionPower > 0) {
+                                event.setDamage(event.getDamage() * (explosionPower + 1));
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -11,34 +11,31 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.AreaEffectCloudApplyEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CreeperListener implements Listener {
 
-    private JavaPlugin plugin;
     private Creeper lastExplodedCreeper;
-
-    public CreeperListener(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
+    private Plugin plugin;
 
     @EventHandler
     public void onEntitySpawn(EntitySpawnEvent event) {
-        Entity entity = event.getEntity();
-
-        if (entity instanceof Creeper) {
+        if (event.getEntity() instanceof Creeper) {
+            Creeper creeper = (Creeper) event.getEntity();
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT ExplosionSpeed FROM creepersettings WHERE ID = 1");
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Fuse FROM creeper_settings WHERE ID = ?");
+                ps.setInt(1, creeper.getEntityId());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    double explosionSpeed = rs.getDouble("ExplosionSpeed");
-                    ((Creeper) entity).setMaxFuseTicks((int)(((Creeper) entity).getMaxFuseTicks() / explosionSpeed));
+                    int fuse = rs.getInt("Fuse");
+                    creeper.setMaxFuseTicks((int) (fuse * 10));
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -56,7 +53,7 @@ public class CreeperListener implements Listener {
                         }
                     }
                 }
-            }, 20L);
+            }, 1L);
         }
     }
 

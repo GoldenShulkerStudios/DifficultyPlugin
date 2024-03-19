@@ -6,12 +6,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MagmaCubeListener implements Listener {
 
@@ -19,23 +18,19 @@ public class MagmaCubeListener implements Listener {
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof MagmaCube && event.getEntity() instanceof Player) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Knockback, Strength FROM magmacubesettings WHERE ID = 1");
+                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Punch FROM magmacube_settings WHERE ID = ?");
+                ps.setInt(1, ((MagmaCube) event.getDamager()).getEntityId());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    int knockback = rs.getInt("Knockback");
-                    int strength = rs.getInt("Strength");
-                    MagmaCube magmaCube = (MagmaCube) event.getDamager();
-                    if (knockback > 0) {
+                    int punch = rs.getInt("Punch");
+                    if (punch > 0) {
                         Vector velocity = event.getEntity().getVelocity();
-                        Vector knockbackDirection = event.getDamager().getLocation().getDirection().multiply(knockback);
-                        velocity.add(knockbackDirection);
+                        Vector punchDirection = event.getDamager().getLocation().getDirection().multiply(punch);
+                        velocity.add(punchDirection);
                         event.getEntity().setVelocity(velocity);
                     }
-                    if (strength > 0) {
-                        magmaCube.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, strength - 1));
-                    }
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

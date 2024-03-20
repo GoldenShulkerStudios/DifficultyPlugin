@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
 
 public class TotemStatusCommand implements CommandExecutor {
@@ -31,7 +31,7 @@ public class TotemStatusCommand implements CommandExecutor {
 
     private void loadSettingsFromDatabase(Player player) {
         try {
-            Statement statement = Connection.getConnection().createStatement();
+            Statement statement = DatabaseConnection.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM totemsettings WHERE ID = 1");
 
             if (resultSet.next()) {

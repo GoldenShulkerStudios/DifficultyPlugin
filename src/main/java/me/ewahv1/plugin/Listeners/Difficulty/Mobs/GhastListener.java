@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
@@ -36,7 +36,7 @@ public class GhastListener implements Listener {
                 Fireball fireball = (Fireball) entityDamageByEntityEvent.getDamager();
                 if (fireball.getShooter() instanceof Ghast) {
                     try {
-                        PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT ExplosionPower FROM ghast_settings WHERE ID = 1");
+                        PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT ExplosionPower FROM diff_ghast_settings WHERE ID = 1");
                         ResultSet rs = ps.executeQuery();
                         if (rs.next()) {
                             int explosionPower = rs.getInt("ExplosionPower");

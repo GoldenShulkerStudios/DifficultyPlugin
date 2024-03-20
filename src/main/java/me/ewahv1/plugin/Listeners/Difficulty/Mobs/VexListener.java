@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
@@ -21,7 +21,7 @@ public class VexListener implements Listener {
         if (event.getEntityType() == EntityType.VEX) {
             Vex vex = (Vex) event.getEntity();
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT SwordMaterial, Sharpness, Flame FROM vex_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT SwordMaterial, Sharpness, Flame FROM diff_vex_settings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int swordMaterial = rs.getInt("SwordMaterial");

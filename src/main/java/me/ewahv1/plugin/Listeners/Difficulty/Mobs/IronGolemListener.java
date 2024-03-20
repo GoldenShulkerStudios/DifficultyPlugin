@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +19,7 @@ public class IronGolemListener implements Listener {
         if (event.getEntity() instanceof IronGolem) {
             IronGolem ironGolem = (IronGolem) event.getEntity();
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT FireResistance FROM IronGolem_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT FireResistance FROM diff_irongolem_settings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     boolean fireResistance = rs.getBoolean("FireResistance");

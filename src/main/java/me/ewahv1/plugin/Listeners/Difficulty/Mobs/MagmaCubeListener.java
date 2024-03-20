@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +18,7 @@ public class MagmaCubeListener implements Listener {
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof MagmaCube && event.getEntity() instanceof Player) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Punch FROM magmacube_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Punch FROM diff_magmacube_settings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int punch = rs.getInt("Punch");

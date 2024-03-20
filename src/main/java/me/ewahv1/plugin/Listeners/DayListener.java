@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ public class DayListener {
 
     public static void updateCurrentDay() {
         try {
-            PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT `Dia Actual` FROM settings WHERE ID = 1");
+            PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT `Dia Actual` FROM settings WHERE ID = 1");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 currentDay = rs.getInt("Dia Actual");

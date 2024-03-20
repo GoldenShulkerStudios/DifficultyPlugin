@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Zoglin;
@@ -19,7 +19,7 @@ public class ZoglinListener implements Listener {
         if (event.getEntityType() == EntityType.ZOGLIN) {
             Zoglin zoglin = (Zoglin) event.getEntity();
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT DoubleDamage FROM zoglin_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT DoubleDamage FROM diff_zoglin_settings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int doubleDamage = rs.getInt("DoubleDamage");

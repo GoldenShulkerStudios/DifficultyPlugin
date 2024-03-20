@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Storm;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -46,7 +46,7 @@ public class StormListener implements Listener {
 
     private void loadSettingsFromDatabase() {
         try {
-            java.sql.Connection connection = Connection.getConnection();
+            java.sql.Connection connection = DatabaseConnection.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM stormsettings WHERE ID = 1");
             while (resultSet.next()) {
@@ -107,7 +107,7 @@ public class StormListener implements Listener {
                         }
                         try {
                             // Obtiene una conexión a la base de datos
-                            java.sql.Connection connection = Connection.getConnection();
+                            java.sql.Connection connection = DatabaseConnection.getConnection();
 
                             // Crea un objeto PreparedStatement para enviar consultas SQL a la base de datos
                             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE stormsettings SET StormTime = ? WHERE ID = 1");

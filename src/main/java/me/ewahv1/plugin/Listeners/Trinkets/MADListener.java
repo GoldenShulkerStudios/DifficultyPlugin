@@ -1,5 +1,6 @@
 package me.ewahv1.plugin.Listeners.Trinkets;
 
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.Material;
 import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Player;
@@ -7,18 +8,21 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-public class MochilaAntigravedadDefectuosaListener implements Listener {
+public class MADListener implements Listener {
 
     private final Map<UUID, Long> cooldowns = new HashMap<>();
 
@@ -38,6 +42,7 @@ public class MochilaAntigravedadDefectuosaListener implements Listener {
                         meta.setDisplayName("§6§lMochila Antigravedad Defectuosa Dorada");
                         meta.setLore(Arrays.asList("§aEl portador tendrá Slow Falling I durante 5 segundos de manera aleatoria cada 1 segundo", "§6§lSlot: Mano secundaria"));
                         meta.setCustomModelData(4);
+                        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         defectiveGravityBackpack.setItemMeta(meta);
                     } else {
                         defectiveGravityBackpack = new ItemStack(Material.SHULKER_SHELL, 1);
@@ -45,9 +50,19 @@ public class MochilaAntigravedadDefectuosaListener implements Listener {
                         meta.setDisplayName("§6§lMochila Antigravedad Defectuosa");
                         meta.setLore(Arrays.asList("§aEl portador tendrá Slow Falling I durante 3 segundos de manera aleatoria cada 1 segundo", "§6§lSlot: Mano secundaria"));
                         meta.setCustomModelData(3);
+                        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         defectiveGravityBackpack.setItemMeta(meta);
                     }
                     event.getDrops().add(defectiveGravityBackpack);
+
+                    // Actualizar el contador en la base de datos
+                    try {
+                        java.sql.Connection connection = DatabaseConnection.getConnection();
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("UPDATE tri_MAD_Settings SET Counter = Counter + 1 WHERE ID = 1");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@ package me.ewahv1.plugin.Database;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Connection {
+public class DatabaseConnection {
 
     private static java.sql.Connection connection;
 

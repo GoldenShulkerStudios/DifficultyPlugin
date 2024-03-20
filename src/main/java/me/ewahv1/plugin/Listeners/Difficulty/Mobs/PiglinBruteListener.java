@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.entity.PiglinBrute;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +18,7 @@ public class PiglinBruteListener implements Listener {
             PiglinBrute piglinBrute = (PiglinBrute) event.getEntity();
             if (!piglinBrute.getScoreboardTags().contains("clon")) {
                 try {
-                    PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT SpawnQuantity FROM piglinbrute_settings WHERE ID = 1");
+                    PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT SpawnQuantity FROM diff_piglinbrute_settings WHERE ID = 1");
                     ResultSet rs = ps.executeQuery();
                     if (rs.next()) {
                         int spawnQuantity = rs.getInt("SpawnQuantity");

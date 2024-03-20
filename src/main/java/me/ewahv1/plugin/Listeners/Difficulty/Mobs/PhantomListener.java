@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.entity.Phantom;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +17,7 @@ public class PhantomListener implements Listener {
         if (event.getEntity() instanceof Phantom) {
             Phantom phantom = (Phantom) event.getEntity();
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Size FROM phantom_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Size FROM diff_phantom_settings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int size = rs.getInt("Size");

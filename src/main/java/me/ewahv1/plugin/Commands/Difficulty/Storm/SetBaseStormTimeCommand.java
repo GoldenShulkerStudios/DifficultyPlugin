@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Commands.Difficulty.Storm;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.Difficulty.Storm.StormListener;
 
 import org.bukkit.command.Command;
@@ -27,7 +27,7 @@ public class SetBaseStormTimeCommand implements CommandExecutor {
                     int baseStormTime = Integer.parseInt(args[0]);
                     stormListener.setBaseStormTime(baseStormTime);
 
-                    java.sql.Connection connection = Connection.getConnection();
+                    java.sql.Connection connection = DatabaseConnection.getConnection();
 
                     PreparedStatement preparedStatement = connection.prepareStatement("UPDATE stormsettings SET BaseStormTime = ? WHERE ID = 1");
 

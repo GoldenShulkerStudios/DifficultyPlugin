@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Commands.Difficulty.Storm;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.Difficulty.Storm.StormListener;
 
 import org.bukkit.command.Command;
@@ -24,7 +24,7 @@ public class StormStatusCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             try {
-                java.sql.Connection connection = Connection.getConnection();
+                java.sql.Connection connection = DatabaseConnection.getConnection();
 
                 Statement statement = connection.createStatement();
 

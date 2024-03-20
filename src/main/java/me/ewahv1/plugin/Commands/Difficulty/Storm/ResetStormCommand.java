@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.Difficulty.Storm.StormListener;
 
 import java.sql.PreparedStatement;
@@ -23,7 +23,7 @@ public class ResetStormCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             try {
-                java.sql.Connection connection = Connection.getConnection();
+                java.sql.Connection connection = DatabaseConnection.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement("UPDATE stormsettings SET StormTime = ?, BaseStormTime = ? WHERE ID = 1");
 
                 preparedStatement.setInt(1, 0);

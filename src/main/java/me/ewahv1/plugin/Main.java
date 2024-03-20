@@ -2,7 +2,7 @@ package me.ewahv1.plugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
 import me.ewahv1.plugin.Listeners.Difficulty.Storm.StormListener;
@@ -16,11 +16,11 @@ import me.ewahv1.plugin.Listeners.Trinkets.*;
 
 public class Main extends JavaPlugin {
 
-    private Connection connection;
+    private DatabaseConnection connection;
 
     @Override
     public void onEnable() {
-        connection = new Connection();
+        connection = new DatabaseConnection();
         StormListener stormListener = new StormListener(this);
         FailTotemListener failTotemListener = new FailTotemListener(this);
         BeeListener beeListener = new BeeListener();
@@ -51,9 +51,9 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(ironGolemListener, this); 
         getServer().getPluginManager().registerEvents(piglinListener, this); 
 
-        getServer().getPluginManager().registerEvents(new BrazoPutrefactoListener(), this);
+        getServer().getPluginManager().registerEvents(new ArmZby(), this);
         getServer().getPluginManager().registerEvents(new DescalcificadorListener(), this);
-        getServer().getPluginManager().registerEvents(new MochilaAntigravedadDefectuosaListener(), this);
+        getServer().getPluginManager().registerEvents(new MADListener(), this);
         getServer().getPluginManager().registerEvents(new WarmogListener(this), this);
 
 

@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
 
 public class ToggleTotemCommand implements CommandExecutor {
@@ -33,7 +33,7 @@ public class ToggleTotemCommand implements CommandExecutor {
 
     private void updateDatabase(boolean status) {
         try {
-            PreparedStatement statement = Connection.getConnection().prepareStatement("UPDATE totemsettings SET Status = ? WHERE ID = 1");
+            PreparedStatement statement = DatabaseConnection.getConnection().prepareStatement("UPDATE totemsettings SET Status = ? WHERE ID = 1");
             statement.setBoolean(1, status);
             statement.executeUpdate();
         } catch (Exception e) {

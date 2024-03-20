@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.PigZombie;
@@ -22,7 +22,7 @@ public class ZombifiedPiglin implements Listener {
         if (event.getEntity() instanceof PigZombie) {
             PigZombie pigZombie = (PigZombie) event.getEntity();
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Speed, BlazeRod, FireAspect FROM zombifiedpiglin_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Speed, BlazeRod, FireAspect FROM diff_zombifiedpiglin_settings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int speed = rs.getInt("Speed");

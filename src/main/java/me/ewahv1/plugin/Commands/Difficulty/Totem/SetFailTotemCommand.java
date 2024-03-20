@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import java.sql.PreparedStatement;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
 
 public class SetFailTotemCommand implements CommandExecutor {
@@ -42,7 +42,7 @@ public class SetFailTotemCommand implements CommandExecutor {
 
     private void updateDatabase(int percentage) {
         try {
-            PreparedStatement statement = Connection.getConnection().prepareStatement("UPDATE totemsettings SET FailPorcentage = ? WHERE ID = 1");
+            PreparedStatement statement = DatabaseConnection.getConnection().prepareStatement("UPDATE totemsettings SET FailPorcentage = ? WHERE ID = 1");
             statement.setInt(1, percentage);
             statement.executeUpdate();
         } catch (Exception e) {

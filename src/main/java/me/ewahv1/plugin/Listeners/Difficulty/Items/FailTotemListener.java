@@ -13,7 +13,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 
 public class FailTotemListener implements Listener {
     private Random random = new Random();
@@ -28,7 +28,7 @@ public class FailTotemListener implements Listener {
 
     private void loadSettingsFromDatabase() {
         try {
-            Statement statement = Connection.getConnection().createStatement();
+            Statement statement = DatabaseConnection.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM totemsettings WHERE ID = 1");
 
             if (resultSet.next()) {

@@ -3,11 +3,11 @@
     
     <!-- Project information -->
     <groupId>me.ewahv1</groupId>
-    <artifactId>PluginDifficulty</artifactId>
+    <artifactId>PluginInsomnia</artifactId>
     <packaging>jar</packaging>
 
     <!-- Plugin Information -->
-    <name>PluginDifficulty</name>
+    <name>PluginInsomnia</name>
     <description>This plugin is created for the Insomnia</description>
     <version>0.0.1</version>
     <url>https://github.com/2lstudios-mc/bukkit-boilerplate</url>

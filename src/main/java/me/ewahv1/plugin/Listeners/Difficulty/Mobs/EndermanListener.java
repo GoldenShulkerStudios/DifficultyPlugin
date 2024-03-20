@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
@@ -21,7 +21,7 @@ public class EndermanListener implements Listener {
 
         if (entity instanceof Enderman) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Speed, Strength FROM enderman_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Speed, Strength FROM diff_enderman_settings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int speed = rs.getInt("Speed");

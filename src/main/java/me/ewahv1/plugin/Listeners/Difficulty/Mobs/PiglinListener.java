@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Piglin;
@@ -20,7 +20,7 @@ public class PiglinListener implements Listener {
         if (event.getEntity() instanceof Piglin) {
             Piglin piglin = (Piglin) event.getEntity();
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT SwordMaterial, QuickCharge FROM piglin_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT SwordMaterial, QuickCharge FROM diff_piglin_settings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int swordMaterial = rs.getInt("SwordMaterial");

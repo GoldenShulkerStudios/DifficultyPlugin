@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.DayListener;
 
 import org.bukkit.entity.Bee;
@@ -25,7 +25,7 @@ public class BeeListener implements Listener {
 
         if (entity instanceof Bee) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Hostility FROM bee_settings WHERE ID = " + DayListener.getCurrentDay());
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Hostility FROM dif_Bee_Settings WHERE ID = " + DayListener.getCurrentDay());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     boolean hostility = rs.getBoolean("Hostility");
@@ -50,7 +50,7 @@ public class BeeListener implements Listener {
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Bee) {
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT Strength FROM bee_settings WHERE ID = " + DayListener.getCurrentDay());
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Strength FROM dif_Bee_Settings WHERE ID = " + DayListener.getCurrentDay());
                 ResultSet rs = ps.executeQuery(); 
                 if (rs.next()) {
                     int strength = rs.getInt("Strength");

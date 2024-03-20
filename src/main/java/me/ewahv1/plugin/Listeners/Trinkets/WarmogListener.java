@@ -1,5 +1,7 @@
 package me.ewahv1.plugin.Listeners.Trinkets;
 
+import me.ewahv1.plugin.Database.DatabaseConnection;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -8,12 +10,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +62,7 @@ public class WarmogListener implements Listener {
                         meta.setDisplayName("§6§lArmadura de Warmog dorada");
                         meta.setLore(Arrays.asList("§aAumenta tu salud máxima en +4❤", "§6§lSlot: Mano secundaria"));
                         meta.setCustomModelData(6);
+                        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         warmogArmor.setItemMeta(meta);
                     } else {
                         warmogArmor = new ItemStack(Material.SHULKER_SHELL, 1);
@@ -64,9 +70,19 @@ public class WarmogListener implements Listener {
                         meta.setDisplayName("§a§lArmadura de Warmog");
                         meta.setLore(Arrays.asList("§aAumenta tu salud máxima en +2❤", "§6§lSlot: Mano secundaria"));
                         meta.setCustomModelData(5);
+                        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         warmogArmor.setItemMeta(meta);
                     }
                     event.getDrops().add(warmogArmor);
+
+                    // Actualizar el contador en la base de datos
+                    try {
+                        java.sql.Connection connection = DatabaseConnection.getConnection();
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("UPDATE tri_Warmog_Settings SET Counter = Counter + 1 WHERE ID = 1");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

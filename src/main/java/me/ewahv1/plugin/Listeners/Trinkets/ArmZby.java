@@ -1,5 +1,7 @@
 package me.ewahv1.plugin.Listeners.Trinkets;
 
+import me.ewahv1.plugin.Database.DatabaseConnection;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Drowned;
 import org.bukkit.entity.Entity;
@@ -11,16 +13,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Random;
 
-public class BrazoPutrefactoListener implements Listener {
+public class ArmZby implements Listener {
 
     @EventHandler
-    public void onZombieDeath(EntityDeathEvent event) {
+    public void onZombieDeath(EntityDeathEvent event) throws SQLException {
         if (event.getEntity() instanceof Zombie) {
             Zombie zombie = (Zombie) event.getEntity();
             if (zombie.getKiller() instanceof Player) {
@@ -35,6 +41,7 @@ public class BrazoPutrefactoListener implements Listener {
                         meta.setDisplayName("§6§lBrazo putrefacto dorado");
                         meta.setLore(Arrays.asList("§aTus ataques básicos realizan +2❤ a los zombies", "§6§lSlot: Mano secundaria"));
                         meta.setCustomModelData(2);
+                        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         warpedFungusStick.setItemMeta(meta);
                     } else {
                         warpedFungusStick = new ItemStack(Material.SHULKER_SHELL, 1);
@@ -42,9 +49,15 @@ public class BrazoPutrefactoListener implements Listener {
                         meta.setDisplayName("§a§lBrazo putrefacto");
                         meta.setLore(Arrays.asList("§aTus ataques básicos realizan +1❤ a los zombies", "§6§lSlot: Mano secundaria"));
                         meta.setCustomModelData(1);
+                        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         warpedFungusStick.setItemMeta(meta);
                     }
                     event.getDrops().add(warpedFungusStick);
+
+                    // Actualizar el contador en la base de datos
+                    Connection connection = DatabaseConnection.getConnection();
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate("UPDATE tri_armzby_settings SET Counter = Counter + 1 WHERE ID = 1");
                 }
             }
         }

@@ -1,6 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
-import me.ewahv1.plugin.Database.Connection;
+import me.ewahv1.plugin.Database.DatabaseConnection;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -23,7 +23,7 @@ public class SkeletonListener implements Listener {
         if (event.getEntity() instanceof Skeleton) {
             Skeleton skeleton = (Skeleton) event.getEntity();
             try {
-                PreparedStatement ps = Connection.getConnection().prepareStatement("SELECT PowerBow, ArrowEffectInstantDamage FROM skeleton_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT PowerBow, ArrowEffectInstantDamage FROM diff_skeleton_settings WHERE ID = 1");
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int powerBow = rs.getInt("PowerBow");

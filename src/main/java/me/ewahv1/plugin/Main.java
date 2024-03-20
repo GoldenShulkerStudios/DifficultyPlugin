@@ -2,12 +2,17 @@ package me.ewahv1.plugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.ewahv1.plugin.Commands.Storm.*;
-import me.ewahv1.plugin.Commands.Totem.*;
 import me.ewahv1.plugin.Database.Connection;
-import me.ewahv1.plugin.Listeners.Storm.StormListener;
-import me.ewahv1.plugin.Listeners.Items.FailTotemListener;
-import me.ewahv1.plugin.Listeners.Mobs.*;
+
+import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
+import me.ewahv1.plugin.Listeners.Difficulty.Storm.StormListener;
+
+import me.ewahv1.plugin.Commands.Difficulty.Storm.*;
+import me.ewahv1.plugin.Commands.Difficulty.Totem.*;
+import me.ewahv1.plugin.Listeners.Difficulty.Mobs.*;
+
+import me.ewahv1.plugin.Listeners.Trinkets.*;
+
 
 public class Main extends JavaPlugin {
 
@@ -20,7 +25,7 @@ public class Main extends JavaPlugin {
         FailTotemListener failTotemListener = new FailTotemListener(this);
         BeeListener beeListener = new BeeListener();
         BlazeListener blazeListener = new BlazeListener();
-        CreeperListener creeperListener = new CreeperListener();
+        CreeperListener creeperListener = new CreeperListener(this);
         DrownedListener drownedListener = new DrownedListener();
         ElderGuardianListener elderGuardianListener = new ElderGuardianListener();
         EndermanListener endermanListener = new EndermanListener();
@@ -35,7 +40,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(failTotemListener, this);
         getServer().getPluginManager().registerEvents(beeListener, this); 
         getServer().getPluginManager().registerEvents(blazeListener, this); 
-        getServer().getPluginManager().registerEvents(creeperListener, this); 
+        getServer().getPluginManager().registerEvents(creeperListener, this);
         getServer().getPluginManager().registerEvents(drownedListener, this); 
         getServer().getPluginManager().registerEvents(elderGuardianListener, this); 
         getServer().getPluginManager().registerEvents(endermanListener, this); 
@@ -45,6 +50,12 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(hoglinListener, this); 
         getServer().getPluginManager().registerEvents(ironGolemListener, this); 
         getServer().getPluginManager().registerEvents(piglinListener, this); 
+
+        getServer().getPluginManager().registerEvents(new BrazoPutrefactoListener(), this);
+        getServer().getPluginManager().registerEvents(new DescalcificadorListener(), this);
+        getServer().getPluginManager().registerEvents(new MochilaAntigravedadDefectuosaListener(), this);
+        getServer().getPluginManager().registerEvents(new WarmogListener(this), this);
+
 
         getCommand("setstormtime").setExecutor(new SetStormTimeCommand(stormListener));
         getCommand("togglestorm").setExecutor(new ToggleStormCommand(stormListener));

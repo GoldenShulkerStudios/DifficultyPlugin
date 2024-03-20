@@ -1,6 +1,8 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import me.ewahv1.plugin.Listeners.DayListener;
+
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +21,7 @@ public class SlimeListener implements Listener {
         if (event.getDamager() instanceof Slime && event.getEntity() instanceof Player) {
             Slime slime = (Slime) event.getDamager();
             try {
-                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Punch FROM diff_slime_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Punch FROM diff_slime_settings WHERE ID = " + DayListener.getCurrentDay());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int punch = rs.getInt("Punch");

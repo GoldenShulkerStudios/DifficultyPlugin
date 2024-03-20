@@ -1,6 +1,7 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import me.ewahv1.plugin.Listeners.DayListener;
 
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
@@ -36,7 +37,7 @@ public class GhastListener implements Listener {
                 Fireball fireball = (Fireball) entityDamageByEntityEvent.getDamager();
                 if (fireball.getShooter() instanceof Ghast) {
                     try {
-                        PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT ExplosionPower FROM diff_ghast_settings WHERE ID = 1");
+                        PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT ExplosionPower FROM diff_ghast_settings WHERE ID = " + DayListener.getCurrentDay());
                         ResultSet rs = ps.executeQuery();
                         if (rs.next()) {
                             int explosionPower = rs.getInt("ExplosionPower");

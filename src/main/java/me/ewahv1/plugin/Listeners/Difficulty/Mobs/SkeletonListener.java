@@ -1,6 +1,7 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import me.ewahv1.plugin.Listeners.DayListener;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -23,7 +24,7 @@ public class SkeletonListener implements Listener {
         if (event.getEntity() instanceof Skeleton) {
             Skeleton skeleton = (Skeleton) event.getEntity();
             try {
-                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT PowerBow, ArrowEffectInstantDamage FROM diff_skeleton_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT PowerBow, ArrowEffectInstantDamage FROM diff_skeleton_settings WHERE ID = " + DayListener.getCurrentDay());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int powerBow = rs.getInt("PowerBow");

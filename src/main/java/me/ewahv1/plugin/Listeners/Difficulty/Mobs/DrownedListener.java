@@ -1,6 +1,8 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import me.ewahv1.plugin.Listeners.DayListener;
+
 import org.bukkit.entity.Drowned;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
@@ -22,7 +24,7 @@ public class DrownedListener implements Listener {
 
         if (entity instanceof Drowned) {
             try {
-                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Trident, Channeling FROM diff_drowned_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Trident, Channeling FROM diff_drowned_settings WHERE ID = " + DayListener.getCurrentDay());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     boolean trident = rs.getBoolean("Trident");

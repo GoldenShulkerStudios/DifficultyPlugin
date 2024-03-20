@@ -1,6 +1,8 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import me.ewahv1.plugin.Listeners.DayListener;
+
 import org.bukkit.entity.Endermite;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +21,7 @@ public class EndermiteListener implements Listener {
         if (event.getEntity() instanceof Endermite) {
             Endermite endermite = (Endermite) event.getEntity();
             try {
-                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Inmortal, Strength FROM diff_endermite_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Inmortal, Strength FROM diff_endermite_settings WHERE ID = " + DayListener.getCurrentDay());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     boolean inmortal = rs.getBoolean("Inmortal");

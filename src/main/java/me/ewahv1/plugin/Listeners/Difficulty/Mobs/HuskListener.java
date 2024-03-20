@@ -1,6 +1,8 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import me.ewahv1.plugin.Listeners.DayListener;
+
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Husk;
@@ -20,7 +22,7 @@ public class HuskListener implements Listener {
         if (event.getEntity() instanceof Husk) {
             Husk husk = (Husk) event.getEntity();
             try {
-                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Axe, Sharpness FROM diff_husk_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Axe, Sharpness FROM diff_husk_settings WHERE ID = " + DayListener.getCurrentDay());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int axe = rs.getInt("Axe");

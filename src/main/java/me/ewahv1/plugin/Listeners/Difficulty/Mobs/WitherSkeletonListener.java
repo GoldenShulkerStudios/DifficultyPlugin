@@ -1,6 +1,8 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import me.ewahv1.plugin.Listeners.DayListener;
+
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
@@ -21,7 +23,7 @@ public class WitherSkeletonListener implements Listener {
         if (event.getEntityType() == EntityType.WITHER_SKELETON) {
             WitherSkeleton witherSkeleton = (WitherSkeleton) event.getEntity();
             try {
-                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT AxeMaterial, Sharpness FROM diff_witherskeleton_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT AxeMaterial, Sharpness FROM diff_witherskeleton_settings WHERE ID = " + DayListener.getCurrentDay());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int axeMaterial = rs.getInt("AxeMaterial");

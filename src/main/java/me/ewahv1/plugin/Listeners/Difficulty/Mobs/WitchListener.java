@@ -1,6 +1,8 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import me.ewahv1.plugin.Listeners.DayListener;
+
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Witch;
 import org.bukkit.event.EventHandler;
@@ -20,7 +22,7 @@ public class WitchListener implements Listener {
         if (event.getEntityType() == EntityType.WITCH) {
             Witch witch = (Witch) event.getEntity();
             try {
-                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Regeneration, Resistance FROM diff_witch_settings WHERE ID = 1");
+                PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT Regeneration, Resistance FROM diff_witch_settings WHERE ID = " + DayListener.getCurrentDay());
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int regeneration = rs.getInt("Regeneration");

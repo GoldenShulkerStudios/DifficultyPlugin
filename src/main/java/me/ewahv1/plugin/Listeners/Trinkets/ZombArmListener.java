@@ -31,7 +31,7 @@ public class ZombArmListener implements Listener {
                 if (chance < 3) {// Chance de ser dropeado el trinket
                     ItemStack warpedFungusStick;
                     int goldenChance = rand.nextInt(100);
-                    if (goldenChance < 10) { // Chance de ser dorado
+                    if (goldenChance < 1) { // Chance de ser dorado
                         warpedFungusStick = new ItemStack(Material.WARPED_FUNGUS_ON_A_STICK, 1);
                         ItemMeta meta = warpedFungusStick.getItemMeta();
                         meta.setDisplayName("§6§lBrazo putrefacto dorado");
@@ -43,7 +43,7 @@ public class ZombArmListener implements Listener {
                         warpedFungusStick.setItemMeta(meta);
                         Connection connection = DatabaseConnection.getConnection();
                         Statement statement = connection.createStatement();
-                        statement.executeUpdate("UPDATE tri_zombarm_settings SET CounterGold = CounterGold + 1 WHERE ID = 1");
+                        statement.executeUpdate("UPDATE tri_count_settings SET CountGold = CountGold + 1 WHERE ID = 4");
                     } else {
                         warpedFungusStick = new ItemStack(Material.WARPED_FUNGUS_ON_A_STICK, 1);
                         ItemMeta meta = warpedFungusStick.getItemMeta();
@@ -54,7 +54,7 @@ public class ZombArmListener implements Listener {
                         warpedFungusStick.setItemMeta(meta);
                         Connection connection = DatabaseConnection.getConnection();
                         Statement statement = connection.createStatement();
-                        statement.executeUpdate("UPDATE tri_zombarm_settings SET CounterNormal = CounterNormal + 1 WHERE ID = 1");
+                        statement.executeUpdate("UPDATE tri_count_settings SET CountNormal = CountNormal + 1 WHERE ID = 4");
                     }
                     event.getDrops().add(warpedFungusStick);
                 }

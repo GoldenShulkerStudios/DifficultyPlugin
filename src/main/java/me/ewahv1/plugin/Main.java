@@ -13,7 +13,6 @@ import me.ewahv1.plugin.Listeners.Difficulty.Mobs.*;
 
 import me.ewahv1.plugin.Listeners.Trinkets.*;
 
-
 public class Main extends JavaPlugin {
 
     private DatabaseConnection connection;

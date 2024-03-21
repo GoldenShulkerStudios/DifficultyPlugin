@@ -2,6 +2,7 @@ package me.ewahv1.plugin.Listeners.Trinkets;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -27,42 +29,45 @@ public class MADListener implements Listener {
     private final Map<UUID, Long> cooldowns = new HashMap<>();
 
     @EventHandler
-    public void onPhantomDeath(EntityDeathEvent event) {
+    public void onPhantomDeath(EntityDeathEvent event) throws SQLException {
         if (event.getEntity() instanceof Phantom) {
             Phantom phantom = (Phantom) event.getEntity();
             if (phantom.getKiller() instanceof Player) {
                 Random rand = new Random();
                 int chance = rand.nextInt(100);
-                if (chance < 90) { // Chance de ser dropeado el trinket
+                if (chance < 3) {// Chance de ser dropeado el trinket
                     ItemStack defectiveGravityBackpack;
                     int goldenChance = rand.nextInt(100);
-                    if (goldenChance < 50) { // Chance de ser dorado
-                        defectiveGravityBackpack = new ItemStack(Material.SHULKER_SHELL, 1);
+                    if (goldenChance < 1) { // Chance de ser dorado
+                        defectiveGravityBackpack = new ItemStack(Material.WARPED_FUNGUS_ON_A_STICK, 1);
                         ItemMeta meta = defectiveGravityBackpack.getItemMeta();
                         meta.setDisplayName("§6§lMochila Antigravedad Defectuosa Dorada");
                         meta.setLore(Arrays.asList("§aEl portador tendrá Slow Falling I durante 5 segundos de manera aleatoria cada 1 segundo", "§6§lSlot: Mano secundaria"));
-                        meta.setCustomModelData(4);
+                        meta.setCustomModelData(6);
                         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+                        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                         defectiveGravityBackpack.setItemMeta(meta);
+
+                        // Actualizar el contador dorado en la base de datos
+                        Connection connection = DatabaseConnection.getConnection();
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("UPDATE tri_count_settings SET CountGold = CountGold + 1 WHERE ID = 2");
                     } else {
-                        defectiveGravityBackpack = new ItemStack(Material.SHULKER_SHELL, 1);
+                        defectiveGravityBackpack = new ItemStack(Material.WARPED_FUNGUS_ON_A_STICK, 1);
                         ItemMeta meta = defectiveGravityBackpack.getItemMeta();
-                        meta.setDisplayName("§6§lMochila Antigravedad Defectuosa");
+                        meta.setDisplayName("§a§lMochila Antigravedad Defectuosa");
                         meta.setLore(Arrays.asList("§aEl portador tendrá Slow Falling I durante 3 segundos de manera aleatoria cada 1 segundo", "§6§lSlot: Mano secundaria"));
-                        meta.setCustomModelData(3);
+                        meta.setCustomModelData(5);
                         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         defectiveGravityBackpack.setItemMeta(meta);
+
+                        // Actualizar el contador normal en la base de datos
+                        Connection connection = DatabaseConnection.getConnection();
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("UPDATE tri_count_settings SET CountNormal = CountNormal + 1 WHERE ID = 2");
                     }
                     event.getDrops().add(defectiveGravityBackpack);
-
-                    // Actualizar el contador en la base de datos
-                    try {
-                        java.sql.Connection connection = DatabaseConnection.getConnection();
-                        Statement statement = connection.createStatement();
-                        statement.executeUpdate("UPDATE tri_MAD_Settings SET Counter = Counter + 1 WHERE ID = 1");
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         }
@@ -75,18 +80,16 @@ public class MADListener implements Listener {
         Long cooldownTime = cooldowns.get(player.getUniqueId());
 
         if (cooldownTime != null && cooldownTime > System.currentTimeMillis()) {
-            // Si el tiempo de enfriamiento aún no ha terminado, no hacemos nada
             return;
         }
-
-        if (offHandItem.getType() == Material.SHULKER_SHELL && offHandItem.getItemMeta().getDisplayName().equals("§6§lMochila Antigravedad Defectuosa")) {
+        if (offHandItem.getType() == Material.WARPED_FUNGUS_ON_A_STICK && offHandItem.getItemMeta().getDisplayName().equals("§a§lMochila Antigravedad Defectuosa")) {
             Random rand = new Random();
             int chance = rand.nextInt(5);
             if (chance == 0) { // Chance de activar el efecto
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 60, 0, true, false, true)); // Slow Falling I durante 3 segundos
                 cooldowns.put(player.getUniqueId(), System.currentTimeMillis() + 10000); // Añadimos un tiempo de enfriamiento de 10 segundos
             }
-        } else if (offHandItem.getType() == Material.SHULKER_SHELL && offHandItem.getItemMeta().getDisplayName().equals("§6§lMochila Antigravedad Defectuosa Dorada")) {
+        } else if (offHandItem.getType() == Material.WARPED_FUNGUS_ON_A_STICK && offHandItem.getItemMeta().getDisplayName().equals("§6§lMochila Antigravedad Defectuosa Dorada")) {
             Random rand = new Random();
             int chance = rand.nextInt(5);
             if (chance == 0) { // Chance de activar el efecto

@@ -4,6 +4,7 @@ import me.ewahv1.plugin.Database.DatabaseConnection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Ravager;
 import org.bukkit.event.EventHandler;
@@ -17,6 +18,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -47,42 +49,45 @@ public class WarmogListener implements Listener {
     }
 
     @EventHandler
-    public void onRavagerDeath(EntityDeathEvent event) {
+    public void onRavagerDeath(EntityDeathEvent event) throws SQLException {
         if (event.getEntity() instanceof Ravager) {
             Ravager ravager = (Ravager) event.getEntity();
             if (ravager.getKiller() instanceof Player) {
                 Random rand = new Random();
                 int chance = rand.nextInt(100);
-                if (chance < 90) {
+                if (chance < 3) {// Chance de ser dropeado el trinket
                     ItemStack warmogArmor;
                     int goldenChance = rand.nextInt(100);
-                    if (goldenChance < 50) {
-                        warmogArmor = new ItemStack(Material.SHULKER_SHELL, 1);
+                    if (goldenChance < 1) { // Chance de ser dorado
+                        warmogArmor = new ItemStack(Material.WARPED_FUNGUS_ON_A_STICK, 1);
                         ItemMeta meta = warmogArmor.getItemMeta();
                         meta.setDisplayName("§6§lArmadura de Warmog dorada");
                         meta.setLore(Arrays.asList("§aAumenta tu salud máxima en +4❤", "§6§lSlot: Mano secundaria"));
-                        meta.setCustomModelData(6);
+                        meta.setCustomModelData(8);
                         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+                        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                         warmogArmor.setItemMeta(meta);
+
+                        // Actualizar el contador dorado en la base de datos
+                        Connection connection = DatabaseConnection.getConnection();
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("UPDATE tri_count_settings SET CountGold = CountGold + 1 WHERE ID = 3");
                     } else {
-                        warmogArmor = new ItemStack(Material.SHULKER_SHELL, 1);
+                        warmogArmor = new ItemStack(Material.WARPED_FUNGUS_ON_A_STICK, 1);
                         ItemMeta meta = warmogArmor.getItemMeta();
                         meta.setDisplayName("§a§lArmadura de Warmog");
                         meta.setLore(Arrays.asList("§aAumenta tu salud máxima en +2❤", "§6§lSlot: Mano secundaria"));
-                        meta.setCustomModelData(5);
+                        meta.setCustomModelData(7);
                         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         warmogArmor.setItemMeta(meta);
+
+                        // Actualizar el contador normal en la base de datos
+                        Connection connection = DatabaseConnection.getConnection();
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("UPDATE tri_count_settings SET CountNormal = CountNormal + 1 WHERE ID = 3");
                     }
                     event.getDrops().add(warmogArmor);
-
-                    // Actualizar el contador en la base de datos
-                    try {
-                        java.sql.Connection connection = DatabaseConnection.getConnection();
-                        Statement statement = connection.createStatement();
-                        statement.executeUpdate("UPDATE tri_Warmog_Settings SET Counter = Counter + 1 WHERE ID = 1");
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         }

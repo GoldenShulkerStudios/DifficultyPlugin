@@ -33,6 +33,7 @@ public class Main extends JavaPlugin {
         GuardianListener guardianListener = new GuardianListener();
         HoglinListener hoglinListener = new HoglinListener();
         IronGolemListener ironGolemListener = new IronGolemListener();
+        PhantomListener phantomListener = new PhantomListener();
         PiglinListener piglinListener = new PiglinListener();
         PillagerListener pillagerListener = new PillagerListener();
         RavagerListener ravagerListener = new RavagerListener();
@@ -62,6 +63,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(guardianListener, this); 
         getServer().getPluginManager().registerEvents(hoglinListener, this); 
         getServer().getPluginManager().registerEvents(ironGolemListener, this); 
+        getServer().getPluginManager().registerEvents(phantomListener, this); 
         getServer().getPluginManager().registerEvents(piglinListener, this); 
         getServer().getPluginManager().registerEvents(pillagerListener, this); 
         getServer().getPluginManager().registerEvents(ravagerListener, this); 

@@ -1,33 +1,16 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
-
 import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.DayListener;
-
-import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Ghast;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class GhastListener implements Listener {
-
-    @EventHandler
-    public void onEntitySpawn(EntitySpawnEvent event) {
-        Entity entity = event.getEntity();
-
-        if (entity instanceof Ghast) {
-            Ghast ghast = (Ghast) entity;
-            ghast.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(200.0D);
-            ghast.setHealth(200.0D);
-        }
-    }
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {

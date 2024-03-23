@@ -1,8 +1,6 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Mobs;
-
 import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.DayListener;
-
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
@@ -11,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.ItemStack;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

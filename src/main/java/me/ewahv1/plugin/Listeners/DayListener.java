@@ -10,10 +10,6 @@ public class DayListener {
     private static int currentDay;
 
     public static int getCurrentDay() {
-        return currentDay;
-    }
-
-    public static void updateCurrentDay() {
         try {
             PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT `Dia Actual` FROM settings WHERE ID = 1");
             ResultSet rs = ps.executeQuery();
@@ -23,5 +19,7 @@ public class DayListener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return currentDay;
     }
+    
 }

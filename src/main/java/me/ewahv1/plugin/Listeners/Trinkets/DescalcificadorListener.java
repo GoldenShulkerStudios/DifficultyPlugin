@@ -87,7 +87,16 @@ public class DescalcificadorListener implements Listener {
         if (event.getDamager() instanceof Player && event.getEntity() instanceof Skeleton) {
             Player player = (Player) event.getDamager();
             UUID playerUuid = player.getUniqueId();
+    
+            // Obtén el inventario de la Bolsa de Trinkets del jugador
             Inventory bag = getBag(playerUuid);
+    
+            // Verifica si la bolsa es nula antes de intentar acceder a sus contenidos
+            if (bag == null) {
+                return;
+            }
+    
+            // Verifica cada objeto en la Bolsa de Trinkets
             for (ItemStack item : bag.getContents()) {
                 if (item != null && item.getType() == Material.WARPED_FUNGUS_ON_A_STICK) {
                     if (item.getItemMeta().getDisplayName().equals("§a§lDescalcificador")) {

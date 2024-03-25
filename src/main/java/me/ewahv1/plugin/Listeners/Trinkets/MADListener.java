@@ -1,7 +1,5 @@
 package me.ewahv1.plugin.Listeners.Trinkets;
-
 import me.ewahv1.plugin.Database.DatabaseConnection;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -19,7 +17,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
-
 import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -92,6 +89,11 @@ public class MADListener implements Listener {
         // Obtén el inventario de la Bolsa de Trinkets del jugador
         Inventory bag = getBag(playerUuid);
     
+        // Verifica si la bolsa es nula antes de intentar acceder a sus contenidos
+        if (bag == null) {
+            return;
+        }
+    
         // Verifica cada objeto en la Bolsa de Trinkets
         for (ItemStack item : bag.getContents()) {
             if (item != null && item.getType() == Material.WARPED_FUNGUS_ON_A_STICK) {
@@ -115,6 +117,7 @@ public class MADListener implements Listener {
             }
         }
     }
+
     private Inventory getBag(UUID playerUuid) {
         try {
             PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("SELECT inventory FROM player_inventories WHERE player_uuid = ?");

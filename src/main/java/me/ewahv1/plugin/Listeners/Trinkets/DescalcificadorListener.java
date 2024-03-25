@@ -52,7 +52,7 @@ public class DescalcificadorListener implements Listener {
                         warpedFungusStick = new ItemStack(Material.WARPED_FUNGUS_ON_A_STICK, 1);
                         ItemMeta meta = warpedFungusStick.getItemMeta();
                         meta.setDisplayName("§6§lDescalcificador dorado");
-                        meta.setLore(Arrays.asList("§aTus ataques básicos realizan +2❤ a los Esqueletos", "§6§lSlot: B.O.T", "§6§lTrinket"));
+                        meta.setLore(Arrays.asList("§aTus ataques básicos realizan +2❤ a los Esqueletos", "§6§lSlot: B.O.T"));
                         meta.setCustomModelData(4);
                         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         meta.addEnchant(Enchantment.DURABILITY, 1, true);
@@ -66,7 +66,7 @@ public class DescalcificadorListener implements Listener {
                         warpedFungusStick = new ItemStack(Material.WARPED_FUNGUS_ON_A_STICK, 1);
                         ItemMeta meta = warpedFungusStick.getItemMeta();
                         meta.setDisplayName("§a§lDescalcificador");
-                        meta.setLore(Arrays.asList("§aTus ataques básicos realizan +1❤ a los Esqueletos", "§6§lSlot: B.O.T", "§6§lTrinket"));
+                        meta.setLore(Arrays.asList("§aTus ataques básicos realizan +1❤ a los Esqueletos", "§6§lSlot: B.O.T"));
                         meta.setCustomModelData(3);
                         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         warpedFungusStick.setItemMeta(meta);
@@ -87,11 +87,7 @@ public class DescalcificadorListener implements Listener {
         if (event.getDamager() instanceof Player && event.getEntity() instanceof Skeleton) {
             Player player = (Player) event.getDamager();
             UUID playerUuid = player.getUniqueId();
-
-            // Obtén el inventario de la Bolsa de Trinkets del jugador
             Inventory bag = getBag(playerUuid);
-
-            // Verifica cada objeto en la Bolsa de Trinkets
             for (ItemStack item : bag.getContents()) {
                 if (item != null && item.getType() == Material.WARPED_FUNGUS_ON_A_STICK) {
                     if (item.getItemMeta().getDisplayName().equals("§a§lDescalcificador")) {

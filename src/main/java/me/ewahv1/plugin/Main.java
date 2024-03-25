@@ -1,16 +1,12 @@
 package me.ewahv1.plugin;
-
 import org.bukkit.plugin.java.JavaPlugin;
-
 import me.ewahv1.plugin.Database.DatabaseConnection;
-
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
 import me.ewahv1.plugin.Listeners.Difficulty.Storm.StormListener;
-
+import me.ewahv1.plugin.Listeners.Items.TrinketBag.BagOfTrinkets;
 import me.ewahv1.plugin.Commands.Difficulty.Storm.*;
 import me.ewahv1.plugin.Commands.Difficulty.Totem.*;
 import me.ewahv1.plugin.Listeners.Difficulty.Mobs.*;
-
 import me.ewahv1.plugin.Listeners.Trinkets.*;
 
 public class Main extends JavaPlugin {
@@ -20,6 +16,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         connection = new DatabaseConnection();
+        BagOfTrinkets bagOfTrinkets = new BagOfTrinkets(this);
         StormListener stormListener = new StormListener(this);
         FailTotemListener failTotemListener = new FailTotemListener(this);
         BeeListener beeListener = new BeeListener();
@@ -50,6 +47,8 @@ public class Main extends JavaPlugin {
         ZombieVillagerListener zombieVillagerListener = new ZombieVillagerListener();
         ZombifiedPiglinListener zombifiedPiglinListener = new ZombifiedPiglinListener();
 
+
+        getServer().getPluginManager().registerEvents(new BagOfTrinkets(this), this);
         getServer().getPluginManager().registerEvents(stormListener, this);
         getServer().getPluginManager().registerEvents(failTotemListener, this);
         getServer().getPluginManager().registerEvents(beeListener, this); 
@@ -81,7 +80,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(zombifiedPiglinListener, this); 
 
         getServer().getPluginManager().registerEvents(new ZombArmListener(), this);
-        getServer().getPluginManager().registerEvents(new DescalcificadorListener(), this);
+        getServer().getPluginManager().registerEvents(new DescalcificadorListener(this, bagOfTrinkets), this);
         getServer().getPluginManager().registerEvents(new MADListener(), this);
         getServer().getPluginManager().registerEvents(new WarmogListener(this), this);
 

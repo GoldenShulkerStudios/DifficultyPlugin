@@ -56,8 +56,8 @@ public class BagOfTrinkets implements Listener {
             inventory = loadInventoryFromDatabase(playerUuid);
         }
     
-        // Guarda el inventario en la memoria.
-        playerInventories.put(playerUuid, inventory); //le coloca el inventario a la bolsa de trinkets actual
+        // Guarda el inventario en el mapa usando el UUID del jugador como clave.
+        playerInventories.put(playerUuid, inventory);
     
         // Da al jugador la Bolsa de Trinkets.
         ItemStack trinketBag = new ItemStack(Material.CHEST);
@@ -66,6 +66,7 @@ public class BagOfTrinkets implements Listener {
         trinketBag.setItemMeta(meta);
         player.getInventory().addItem(trinketBag);
     }
+    
     
     private boolean playerExistsInDatabase(UUID playerUuid) {
         try {
@@ -102,19 +103,18 @@ public class BagOfTrinkets implements Listener {
         UUID playerUuid = player.getUniqueId();
     
         // Obtiene el inventario de la "Bolsa de Trinkets" del jugador.
-        Inventory trinketBagInventory = playerInventories.get(playerUuid);
-        if (trinketBagInventory != null) {
+        Inventory trinketInventory = playerInventories.get(playerUuid);
+    
+        if (trinketInventory != null) {
+            // Guarda el inventario en la base de datos.
             try {
-                // Actualiza el inventario en la base de datos cuando el jugador se va del servidor.
                 PreparedStatement ps = DatabaseConnection.getConnection().prepareStatement("UPDATE player_inventories SET inventory = ? WHERE player_uuid = ?");
-                ps.setString(1, serializeInventory(trinketBagInventory));
+                ps.setString(1, serializeInventory(trinketInventory));
                 ps.setString(2, playerUuid.toString());
                 ps.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            // Borra el inventario de la memoria del juego.
-            playerInventories.remove(playerUuid);
         }
     
         // Recorre el inventario del jugador para encontrar la "Bolsa de Trinkets".
@@ -129,6 +129,7 @@ public class BagOfTrinkets implements Listener {
             }
         }
     }
+    
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
@@ -155,40 +156,41 @@ public class BagOfTrinkets implements Listener {
                 }
             }
         }
-        }
-    // Este método se activa cuando un jugador hace clic en un inventario.
+    }
+    
+    
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        // Verifica si el que hizo clic es un jugador.
-        if (event.getWhoClicked() instanceof Player) {
+        // Verifica si el evento es de un jugador y si el inventario abierto es la Bolsa de Trinkets.
+        if (event.getWhoClicked() instanceof Player && event.getView().getTitle().equals("Bolsa de Trinkets")) {
             Player player = (Player) event.getWhoClicked(); // Obtiene el jugador.
-
-            // Verifica si el inventario que se está abriendo es la "Bolsa de Trinkets".
-            if (event.getView().getTitle().equals("Bolsa de Trinkets")) {
-                ItemStack item = event.getCurrentItem(); // Obtiene el objeto en el que se hizo clic.
-                if (item != null && item.getType() == Material.WARPED_FUNGUS_ON_A_STICK) {
-                    // Si el objeto es un trinket, permite colocarlo en la Bolsa de Trinkets.
-                    return;
-                } else if (item != null) {
-                    // Si el objeto no es un trinket, cancela el evento y envía un mensaje al jugador.
-                    event.setCancelled(true);
-                    player.sendMessage("¡Solo puedes poner trinkets en la Bolsa de Trinkets!");
-                }
+            ItemStack clickedItem = event.getCurrentItem(); // Obtiene el objeto en el que se hizo clic.
+            
+            // Verifica si el objeto no es nulo y si es un WARPED_FUNGUS_ON_A_STICK.
+            if (clickedItem != null && clickedItem.getType() == Material.WARPED_FUNGUS_ON_A_STICK) {
+                // Si es un trinket, permite colocarlo en la Bolsa de Trinkets.
+                return;
+            } else {
+                // Si no es un trinket, cancela el evento y envía un mensaje al jugador.
+                event.setCancelled(true);
+                player.sendMessage("¡Error! Solo puedes colocar objetos de tipo WARPED_FUNGUS_ON_A_STICK en la Bolsa de Trinkets.");
+                return;
             }
         }
     }
+    
 
-    // Este método se activa cuando un jugador interactúa con un objeto.
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        Player player = event.getPlayer(); // Obtiene el jugador.
-        ItemStack item = event.getItem(); // Obtiene el objeto con el que el jugador está interactuando.
-
-        // Verifica si el objeto es la "Bolsa de Trinkets".
+        Player player = event.getPlayer();
+        ItemStack item = event.getItem();
+    
         if (item != null && item.hasItemMeta() && "Bolsa de Trinkets".equals(item.getItemMeta().getDisplayName())) {
             // Abre el inventario de la "Bolsa de Trinkets" para el jugador.
-            player.openInventory(playerInventories.get(player.getUniqueId()));
-            // Cancela el evento para que el objeto no se use.
+            Inventory trinketInventory = playerInventories.get(player.getUniqueId());
+            if (trinketInventory != null) {
+                player.openInventory(trinketInventory);
+            }
             event.setCancelled(true);
         }
     }

@@ -1,13 +1,19 @@
 package me.ewahv1.plugin;
-import org.bukkit.plugin.java.JavaPlugin;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import me.ewahv1.plugin.Database.DatabaseConfig;
+import me.ewahv1.plugin.Listeners.DayListener;
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
-import me.ewahv1.plugin.Listeners.Difficulty.Storm.StormListener;
-import me.ewahv1.plugin.Listeners.Items.TrinketBag.BagOfTrinkets;
-import me.ewahv1.plugin.Commands.Difficulty.Storm.*;
 import me.ewahv1.plugin.Commands.Difficulty.Totem.*;
 import me.ewahv1.plugin.Listeners.Difficulty.Mobs.*;
-import me.ewahv1.plugin.Listeners.Trinkets.*;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main extends JavaPlugin {
 
@@ -15,9 +21,18 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        connection = new DatabaseConnection();
-        BagOfTrinkets bagOfTrinkets = new BagOfTrinkets(this);
-        StormListener stormListener = new StormListener(this);
+        // Cargar o crear la configuración de la base de datos
+        File configFile = new File(getDataFolder(), "database-config.json");
+        DatabaseConfig config = loadOrCreateConfig(configFile);
+
+        // Inicializar la conexión a la base de datos
+        connection = new DatabaseConnection(config.getUrl(), config.getUsername(), config.getPassword());
+
+        // Obtener el día actual de manera asincrónica
+        DayListener.getCurrentDayAsync(connection).thenAccept(currentDay -> {
+            getLogger().info("El día actual es: " + currentDay);
+        });
+
         FailTotemListener failTotemListener = new FailTotemListener(this);
         BeeListener beeListener = new BeeListener();
         BlazeListener blazeListener = new BlazeListener();
@@ -47,58 +62,66 @@ public class Main extends JavaPlugin {
         ZombieVillagerListener zombieVillagerListener = new ZombieVillagerListener();
         ZombifiedPiglinListener zombifiedPiglinListener = new ZombifiedPiglinListener();
 
-
-        getServer().getPluginManager().registerEvents(new BagOfTrinkets(this), this);
-        getServer().getPluginManager().registerEvents(stormListener, this);
         getServer().getPluginManager().registerEvents(failTotemListener, this);
-        getServer().getPluginManager().registerEvents(beeListener, this); 
-        getServer().getPluginManager().registerEvents(blazeListener, this); 
+        getServer().getPluginManager().registerEvents(beeListener, this);
+        getServer().getPluginManager().registerEvents(blazeListener, this);
         getServer().getPluginManager().registerEvents(creeperListener, this);
-        getServer().getPluginManager().registerEvents(drownedListener, this); 
-        getServer().getPluginManager().registerEvents(elderGuardianListener, this); 
-        getServer().getPluginManager().registerEvents(endermanListener, this); 
-        getServer().getPluginManager().registerEvents(endermiteListener, this); 
-        getServer().getPluginManager().registerEvents(ghastListener, this); 
-        getServer().getPluginManager().registerEvents(guardianListener, this); 
-        getServer().getPluginManager().registerEvents(hoglinListener, this); 
-        getServer().getPluginManager().registerEvents(ironGolemListener, this); 
-        getServer().getPluginManager().registerEvents(phantomListener, this); 
-        getServer().getPluginManager().registerEvents(piglinListener, this); 
-        getServer().getPluginManager().registerEvents(pillagerListener, this); 
-        getServer().getPluginManager().registerEvents(ravagerListener, this); 
-        getServer().getPluginManager().registerEvents(silverfishListener, this); 
-        getServer().getPluginManager().registerEvents(skeletonListener, this); 
-        getServer().getPluginManager().registerEvents(slimeListener, this); 
-        getServer().getPluginManager().registerEvents(strayListener, this); 
-        getServer().getPluginManager().registerEvents(vexListener, this); 
-        getServer().getPluginManager().registerEvents(vindicatorListener, this); 
-        getServer().getPluginManager().registerEvents(witchListener, this); 
-        getServer().getPluginManager().registerEvents(witherSkeletonListener, this); 
-        getServer().getPluginManager().registerEvents(zoglinListener, this); 
-        getServer().getPluginManager().registerEvents(zombieListener, this); 
-        getServer().getPluginManager().registerEvents(zombieVillagerListener, this); 
-        getServer().getPluginManager().registerEvents(zombifiedPiglinListener, this); 
+        getServer().getPluginManager().registerEvents(drownedListener, this);
+        getServer().getPluginManager().registerEvents(elderGuardianListener, this);
+        getServer().getPluginManager().registerEvents(endermanListener, this);
+        getServer().getPluginManager().registerEvents(endermiteListener, this);
+        getServer().getPluginManager().registerEvents(ghastListener, this);
+        getServer().getPluginManager().registerEvents(guardianListener, this);
+        getServer().getPluginManager().registerEvents(hoglinListener, this);
+        getServer().getPluginManager().registerEvents(ironGolemListener, this);
+        getServer().getPluginManager().registerEvents(phantomListener, this);
+        getServer().getPluginManager().registerEvents(piglinListener, this);
+        getServer().getPluginManager().registerEvents(pillagerListener, this);
+        getServer().getPluginManager().registerEvents(ravagerListener, this);
+        getServer().getPluginManager().registerEvents(silverfishListener, this);
+        getServer().getPluginManager().registerEvents(skeletonListener, this);
+        getServer().getPluginManager().registerEvents(slimeListener, this);
+        getServer().getPluginManager().registerEvents(strayListener, this);
+        getServer().getPluginManager().registerEvents(vexListener, this);
+        getServer().getPluginManager().registerEvents(vindicatorListener, this);
+        getServer().getPluginManager().registerEvents(witchListener, this);
+        getServer().getPluginManager().registerEvents(witherSkeletonListener, this);
+        getServer().getPluginManager().registerEvents(zoglinListener, this);
+        getServer().getPluginManager().registerEvents(zombieListener, this);
+        getServer().getPluginManager().registerEvents(zombieVillagerListener, this);
+        getServer().getPluginManager().registerEvents(zombifiedPiglinListener, this);
 
-        getServer().getPluginManager().registerEvents(new ZombArmListener(), this);
-        getServer().getPluginManager().registerEvents(new DescalcificadorListener(this, bagOfTrinkets), this);
-        getServer().getPluginManager().registerEvents(new MADListener(), this);
-        getServer().getPluginManager().registerEvents(new WarmogListener(this), this);
-
-
-        getCommand("setstormtime").setExecutor(new SetStormTimeCommand(stormListener));
-        getCommand("togglestorm").setExecutor(new ToggleStormCommand(stormListener));
-        getCommand("resetstorm").setExecutor(new ResetStormCommand(stormListener));
-        getCommand("stormstatus").setExecutor(new StormStatusCommand(stormListener));
-        getCommand("setbasestormtime").setExecutor(new SetBaseStormTimeCommand(stormListener));
-
-        getCommand("toggletotem").setExecutor(new ToggleTotemCommand(failTotemListener));
-        getCommand("setfailtotem").setExecutor(new SetFailTotemCommand(failTotemListener));
+        getCommand("toggletotem").setExecutor(new ToggleTotemCommand(failTotemListener, this, connection));
         getCommand("totemstatus").setExecutor(new TotemStatusCommand(failTotemListener));
-
+        getCommand("setfailtotem").setExecutor(new SetFailTotemCommand(failTotemListener, this, connection));
     }
 
     @Override
     public void onDisable() {
         connection.close();
+    }
+
+    private DatabaseConfig loadOrCreateConfig(File file) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            DatabaseConfig defaultConfig = new DatabaseConfig();
+            defaultConfig.setUrl("jdbc:mysql://localhost:3306/stormplugindb");
+            defaultConfig.setUsername("root");
+            defaultConfig.setPassword("root");
+            try (FileWriter writer = new FileWriter(file)) {
+                gson.toJson(defaultConfig, writer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return defaultConfig;
+        } else {
+            try (FileReader reader = new FileReader(file)) {
+                return gson.fromJson(reader, DatabaseConfig.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
     }
 }

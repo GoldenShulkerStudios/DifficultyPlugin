@@ -1,29 +1,29 @@
-name: ${name}
-description: ${description}
-author: ${author}
-main: ${mainClass}
-version: ${version}
+name: DifficultyPlugin
+description: This plugin is created for the Insomnia
+author: ewahv1
+main: me.ewahv1.plugin.Main
+version: 0.0.1
 api-version: 1.20
 commands:
   toggletotem:
     description: Activa o desactiva la mecánica de failtotem.
     usage: /<command>
-    permission: ${name}.toggletotem
+    permission: DifficultyPlugin.toggletotem
   setfailtotem:
     description: Ajusta el porcentaje de falla del totem.
     usage: /<command> <porcentaje>
-    permission: ${name}.setfailtotem
+    permission: DifficultyPlugin.setfailtotem
   totemstatus:
     description: Muestra el estado actual del totem.
     usage: /<command>
-    permission: ${name}.totemstatus
+    permission: DifficultyPlugin.totemstatus
 permissions:
-  ${name}.toggletotem:
+  DifficultyPlugin.toggletotem:
     description: Permite al jugador activar o desactivar la mecánica de failtotem.
     default: op
-  ${name}.setfailtotem:
+  DifficultyPlugin.setfailtotem:
     description: Permite al jugador ajustar el porcentaje de falla del totem.
     default: op
-  ${name}.totemstatus:
+  DifficultyPlugin.totemstatus:
     description: Permite al jugador ver el estado actual del totem.
     default: op

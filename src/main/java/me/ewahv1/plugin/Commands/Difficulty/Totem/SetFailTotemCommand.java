@@ -3,17 +3,25 @@ package me.ewahv1.plugin.Commands.Difficulty.Totem;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.concurrent.CompletableFuture;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
 
 public class SetFailTotemCommand implements CommandExecutor {
     private FailTotemListener failTotemListener;
+    private JavaPlugin plugin;
+    private DatabaseConnection connection;
 
-    public SetFailTotemCommand(FailTotemListener failTotemListener) {
+    public SetFailTotemCommand(FailTotemListener failTotemListener, JavaPlugin plugin, DatabaseConnection connection) {
         this.failTotemListener = failTotemListener;
+        this.plugin = plugin;
+        this.connection = connection;
     }
 
     @Override
@@ -31,8 +39,18 @@ public class SetFailTotemCommand implements CommandExecutor {
             }
 
             failTotemListener.setFailProbability(percentage);
-            updateDatabase(percentage);
-            sender.sendMessage("El porcentaje de falla del totem ahora está establecido en " + percentage + "%.");
+            updateDatabaseAsync(percentage).thenRun(() -> 
+                plugin.getServer().getScheduler().runTask(plugin, () -> 
+                    sender.sendMessage("El porcentaje de falla del totem ahora está establecido en " + percentage + "%.")
+                )
+            ).exceptionally(ex -> {
+                plugin.getServer().getScheduler().runTask(plugin, () -> 
+                    sender.sendMessage("Hubo un error al actualizar la base de datos.")
+                );
+                ex.printStackTrace();
+                return null;
+            });
+
             return true;
         } catch (NumberFormatException e) {
             sender.sendMessage("Por favor, proporciona un número válido.");
@@ -40,13 +58,15 @@ public class SetFailTotemCommand implements CommandExecutor {
         }
     }
 
-    private void updateDatabase(int percentage) {
-        try {
-            PreparedStatement statement = DatabaseConnection.getConnection().prepareStatement("UPDATE totemsettings SET FailPorcentage = ? WHERE ID = 1");
-            statement.setInt(1, percentage);
-            statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private CompletableFuture<Void> updateDatabaseAsync(int percentage) {
+        return connection.getConnectionAsync().thenAccept(conn -> {
+            try (Connection connection = conn; 
+                 PreparedStatement statement = connection.prepareStatement("UPDATE totemsettings SET FailPorcentage = ? WHERE ID = 1")) {
+                statement.setInt(1, percentage);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

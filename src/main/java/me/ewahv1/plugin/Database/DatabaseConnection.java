@@ -1,31 +1,39 @@
 package me.ewahv1.plugin.Database;
 
-import java.sql.DriverManager;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.concurrent.CompletableFuture;
 
 public class DatabaseConnection {
 
-    private static java.sql.Connection connection;
+    private HikariDataSource dataSource;
 
-    public static java.sql.Connection getConnection() {
-        try {
-            if (connection == null) {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/insomniadb", "root", "70284412B*");
-                //connection = DriverManager.getConnection("jdbc:mysql://mysql-134847-0.cloudclusters.net:10005/insomniadb", "admin", "Ft9oZVF1");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return connection;
+    public DatabaseConnection(String url, String username, String password) {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(url);
+        config.setUsername(username);
+        config.setPassword(password);
+        config.setMaximumPoolSize(10);
+        dataSource = new HikariDataSource(config);
     }
 
-    public static void close() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
+    public CompletableFuture<Connection> getConnectionAsync() {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return dataSource.getConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        });
+    }
+
+    public void close() {
+        if (dataSource != null) {
+            dataSource.close();
         }
     }
 }

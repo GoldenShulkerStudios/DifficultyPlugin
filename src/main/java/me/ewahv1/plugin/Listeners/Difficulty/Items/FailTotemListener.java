@@ -1,8 +1,10 @@
 package me.ewahv1.plugin.Listeners.Difficulty.Items;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,24 +22,28 @@ public class FailTotemListener implements Listener {
     private int failProbability;
     private JavaPlugin plugin;
     private boolean isTotemActive;
+    private DatabaseConnection connection;
 
-    public FailTotemListener(JavaPlugin plugin) {
+    public FailTotemListener(JavaPlugin plugin, DatabaseConnection connection) {
         this.plugin = plugin;
-        loadSettingsFromDatabase();
+        this.connection = connection;
+        loadSettingsFromDatabaseAsync();
     }
 
-    private void loadSettingsFromDatabase() {
-        try {
-            Statement statement = DatabaseConnection.getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM totemsettings WHERE ID = 1");
+    private void loadSettingsFromDatabaseAsync() {
+        connection.getConnectionAsync().thenAccept(conn -> {
+            try (Connection connection = conn;
+                 Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery("SELECT * FROM totemsettings WHERE ID = 1")) {
 
-            if (resultSet.next()) {
-                this.failProbability = resultSet.getInt("FailPorcentage");
-                this.isTotemActive = resultSet.getBoolean("Status");
+                if (resultSet.next()) {
+                    this.failProbability = resultSet.getInt("FailPorcentage");
+                    this.isTotemActive = resultSet.getBoolean("Status");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     public void setFailProbability(int failProbability) {

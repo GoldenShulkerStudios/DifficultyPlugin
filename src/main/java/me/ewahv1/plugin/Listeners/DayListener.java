@@ -1,6 +1,7 @@
 package me.ewahv1.plugin.Listeners;
 
 import me.ewahv1.plugin.Database.DatabaseConnection;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,18 +11,32 @@ import java.util.concurrent.CompletableFuture;
 
 public class DayListener {
     private static int currentDay;
+    private static DatabaseConnection connection;
 
-    public static CompletableFuture<Integer> getCurrentDayAsync(DatabaseConnection databaseConnection) {
-        return databaseConnection.getConnectionAsync().thenApplyAsync(connection -> {
-            try (PreparedStatement ps = connection.prepareStatement("SELECT `Dia Actual` FROM settings WHERE ID = 1");
-                 ResultSet rs = ps.executeQuery()) {
+    public static void init(JavaPlugin plugin, DatabaseConnection dbConnection) {
+        connection = dbConnection;
+        loadCurrentDayAsync().thenAccept(day -> {
+            currentDay = day;
+            plugin.getLogger().info("El día actual es: " + currentDay);
+        });
+    }
+
+    public static int getCurrentDay() {
+        return currentDay;
+    }
+
+    public static CompletableFuture<Integer> loadCurrentDayAsync() {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Connection conn = connection.getConnectionAsync().join();
+                 PreparedStatement ps = conn.prepareStatement("SELECT CurrentDay FROM day_settings WHERE ID = 1")) {
+                ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    currentDay = rs.getInt("Dia Actual");
+                    return rs.getInt("CurrentDay");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return currentDay;
+            return 0; // default day if not found or error
         });
     }
 }

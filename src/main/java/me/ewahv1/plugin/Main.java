@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 public class Main extends JavaPlugin {
 
@@ -28,39 +29,37 @@ public class Main extends JavaPlugin {
         // Inicializar la conexión a la base de datos
         connection = new DatabaseConnection(config.getUrl(), config.getUsername(), config.getPassword());
 
-        // Obtener el día actual de manera asincrónica
-        DayListener.getCurrentDayAsync(connection).thenAccept(currentDay -> {
-            getLogger().info("El día actual es: " + currentDay);
-        });
+        // Inicializar DayListener
+        DayListener.init(this, connection);
 
-        FailTotemListener failTotemListener = new FailTotemListener(this);
-        BeeListener beeListener = new BeeListener();
-        BlazeListener blazeListener = new BlazeListener();
-        CreeperListener creeperListener = new CreeperListener(this);
-        DrownedListener drownedListener = new DrownedListener();
-        ElderGuardianListener elderGuardianListener = new ElderGuardianListener();
-        EndermanListener endermanListener = new EndermanListener();
-        EndermiteListener endermiteListener = new EndermiteListener();
-        GhastListener ghastListener = new GhastListener();
-        GuardianListener guardianListener = new GuardianListener();
-        HoglinListener hoglinListener = new HoglinListener();
-        IronGolemListener ironGolemListener = new IronGolemListener();
-        PhantomListener phantomListener = new PhantomListener();
-        PiglinListener piglinListener = new PiglinListener();
-        PillagerListener pillagerListener = new PillagerListener();
-        RavagerListener ravagerListener = new RavagerListener();
+        FailTotemListener failTotemListener = new FailTotemListener(this, connection);
+        BeeListener beeListener = new BeeListener(connection);
+        BlazeListener blazeListener = new BlazeListener(connection);
+        CreeperListener creeperListener = new CreeperListener(this, connection);
+        DrownedListener drownedListener = new DrownedListener(connection);
+        ElderGuardianListener elderGuardianListener = new ElderGuardianListener(connection);
+        EndermanListener endermanListener = new EndermanListener(connection);
+        EndermiteListener endermiteListener = new EndermiteListener(connection);
+        GhastListener ghastListener = new GhastListener(connection);
+        GuardianListener guardianListener = new GuardianListener(connection);
+        HoglinListener hoglinListener = new HoglinListener(connection);
+        IronGolemListener ironGolemListener = new IronGolemListener(connection);
+        PhantomListener phantomListener = new PhantomListener(connection);
+        PiglinListener piglinListener = new PiglinListener(connection);
+        PillagerListener pillagerListener = new PillagerListener(connection);
+        RavagerListener ravagerListener = new RavagerListener(connection);
         SilverfishListener silverfishListener = new SilverfishListener();
-        SkeletonListener skeletonListener = new SkeletonListener();
-        SlimeListener slimeListener = new SlimeListener();
-        StrayListener strayListener = new StrayListener();
-        VexListener vexListener = new VexListener();
-        VindicatorListener vindicatorListener = new VindicatorListener();
-        WitchListener witchListener = new WitchListener();
-        WitherSkeletonListener witherSkeletonListener = new WitherSkeletonListener();
-        ZoglinListener zoglinListener = new ZoglinListener();
-        ZombieListener zombieListener = new ZombieListener();
-        ZombieVillagerListener zombieVillagerListener = new ZombieVillagerListener();
-        ZombifiedPiglinListener zombifiedPiglinListener = new ZombifiedPiglinListener();
+        SkeletonListener skeletonListener = new SkeletonListener(connection);
+        SlimeListener slimeListener = new SlimeListener(connection);
+        StrayListener strayListener = new StrayListener(connection);
+        VexListener vexListener = new VexListener(connection);
+        VindicatorListener vindicatorListener = new VindicatorListener(connection);
+        WitchListener witchListener = new WitchListener(connection);
+        WitherSkeletonListener witherSkeletonListener = new WitherSkeletonListener(connection);
+        ZoglinListener zoglinListener = new ZoglinListener(connection);
+        ZombieListener zombieListener = new ZombieListener(connection);
+        ZombieVillagerListener zombieVillagerListener = new ZombieVillagerListener(connection);
+        ZombifiedPiglinListener zombifiedPiglinListener = new ZombifiedPiglinListener(connection);
 
         getServer().getPluginManager().registerEvents(failTotemListener, this);
         getServer().getPluginManager().registerEvents(beeListener, this);
@@ -92,7 +91,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(zombifiedPiglinListener, this);
 
         getCommand("toggletotem").setExecutor(new ToggleTotemCommand(failTotemListener, this, connection));
-        getCommand("totemstatus").setExecutor(new TotemStatusCommand(failTotemListener));
+        getCommand("totemstatus").setExecutor(new TotemStatusCommand(failTotemListener, this, connection));
         getCommand("setfailtotem").setExecutor(new SetFailTotemCommand(failTotemListener, this, connection));
     }
 
@@ -106,7 +105,7 @@ public class Main extends JavaPlugin {
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             DatabaseConfig defaultConfig = new DatabaseConfig();
-            defaultConfig.setUrl("jdbc:mysql://localhost:3306/stormplugindb");
+            defaultConfig.setUrl("jdbc:mysql://localhost:3306/difficultyplugindb");
             defaultConfig.setUsername("root");
             defaultConfig.setPassword("root");
             try (FileWriter writer = new FileWriter(file)) {

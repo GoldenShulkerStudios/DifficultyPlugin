@@ -15,9 +15,9 @@ import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
 
 public class TotemStatusCommand implements CommandExecutor {
-    private FailTotemListener failTotemListener;
-    private JavaPlugin plugin;
-    private DatabaseConnection connection;
+    private final FailTotemListener failTotemListener;
+    private final JavaPlugin plugin;
+    private final DatabaseConnection connection;
 
     public TotemStatusCommand(FailTotemListener failTotemListener, JavaPlugin plugin, DatabaseConnection connection) {
         this.failTotemListener = failTotemListener;
@@ -27,10 +27,15 @@ public class TotemStatusCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length != 2 || !args[0].equalsIgnoreCase("totem") || !args[1].equalsIgnoreCase("status")) {
+            sender.sendMessage("Uso: /difficulty totem status");
+            return false;
+        }
+
         if (sender instanceof Player) {
             Player player = (Player) sender;
             loadSettingsFromDatabaseAsync(player).exceptionally(ex -> {
-                plugin.getServer().getScheduler().runTask(plugin, () -> 
+                plugin.getServer().getScheduler().runTask(plugin, () ->
                     player.sendMessage("Hubo un error al cargar la configuración de la base de datos.")
                 );
                 ex.printStackTrace();
@@ -44,8 +49,8 @@ public class TotemStatusCommand implements CommandExecutor {
 
     private CompletableFuture<Void> loadSettingsFromDatabaseAsync(Player player) {
         return connection.getConnectionAsync().thenAccept(conn -> {
-            try (Connection connection = conn; 
-                 Statement statement = connection.createStatement(); 
+            try (Connection connection = conn;
+                 Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery("SELECT * FROM totemsettings WHERE ID = 1")) {
 
                 if (resultSet.next()) {

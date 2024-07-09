@@ -15,9 +15,9 @@ import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
 
 public class ToggleTotemCommand implements CommandExecutor {
-    private FailTotemListener failTotemListener;
-    private JavaPlugin plugin;
-    private DatabaseConnection connection;
+    private final FailTotemListener failTotemListener;
+    private final JavaPlugin plugin;
+    private final DatabaseConnection connection;
 
     public ToggleTotemCommand(FailTotemListener failTotemListener, JavaPlugin plugin, DatabaseConnection connection) {
         this.failTotemListener = failTotemListener;
@@ -27,16 +27,21 @@ public class ToggleTotemCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length != 2 || !args[0].equalsIgnoreCase("totem") || !args[1].equalsIgnoreCase("toggle")) {
+            sender.sendMessage("Uso: /difficulty totem toggle");
+            return false;
+        }
+
         if (sender instanceof Player) {
             Player player = (Player) sender;
             boolean isTotemActive = failTotemListener.isTotemActive();
             failTotemListener.setTotemActive(!isTotemActive);
-            updateDatabaseAsync(!isTotemActive).thenRun(() -> 
-                plugin.getServer().getScheduler().runTask(plugin, () -> 
+            updateDatabaseAsync(!isTotemActive).thenRun(() ->
+                plugin.getServer().getScheduler().runTask(plugin, () ->
                     player.sendMessage("La mecánica de failtotem ahora está " + (!isTotemActive ? "activada" : "desactivada") + ".")
                 )
             ).exceptionally(ex -> {
-                plugin.getServer().getScheduler().runTask(plugin, () -> 
+                plugin.getServer().getScheduler().runTask(plugin, () ->
                     player.sendMessage("Hubo un error al actualizar la base de datos.")
                 );
                 ex.printStackTrace();
@@ -50,7 +55,7 @@ public class ToggleTotemCommand implements CommandExecutor {
 
     private CompletableFuture<Void> updateDatabaseAsync(boolean status) {
         return connection.getConnectionAsync().thenAccept(conn -> {
-            try (Connection connection = conn; 
+            try (Connection connection = conn;
                  PreparedStatement statement = connection.prepareStatement("UPDATE totemsettings SET Status = ? WHERE ID = 1")) {
                 statement.setBoolean(1, status);
                 statement.executeUpdate();

@@ -5,19 +5,15 @@ main: ${mainClass}
 version: ${version}
 api-version: 1.20
 commands:
-  toggletotem:
-    description: Activa o desactiva la mecánica de failtotem.
+  difficulty:
+    description: Comandos para ajustar la dificultad del plugin.
     usage: /<command>
-    permission: ${name}.toggletotem
-  setfailtotem:
-    description: Ajusta el porcentaje de falla del totem.
-    usage: /<command> <porcentaje>
-    permission: ${name}.setfailtotem
-  totemstatus:
-    description: Muestra el estado actual del totem.
-    usage: /<command>
-    permission: ${name}.totemstatus
+    aliases: [diff]
+    permission: ${name}.difficulty
 permissions:
+  ${name}.difficulty:
+    description: Permite al jugador usar comandos de dificultad.
+    default: op
   ${name}.toggletotem:
     description: Permite al jugador activar o desactivar la mecánica de failtotem.
     default: op

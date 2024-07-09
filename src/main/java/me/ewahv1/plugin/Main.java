@@ -6,7 +6,8 @@ import me.ewahv1.plugin.Database.DatabaseConnection;
 import me.ewahv1.plugin.Database.DatabaseConfig;
 import me.ewahv1.plugin.Listeners.DayListener;
 import me.ewahv1.plugin.Listeners.Difficulty.Items.FailTotemListener;
-import me.ewahv1.plugin.Commands.Difficulty.Totem.*;
+import me.ewahv1.plugin.Commands.Difficulty.DifficultyCommand;
+import me.ewahv1.plugin.Commands.Difficulty.DifficultyTabCompleter;
 import me.ewahv1.plugin.Listeners.Difficulty.Mobs.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,7 +15,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 
 public class Main extends JavaPlugin {
 
@@ -22,14 +22,11 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Cargar o crear la configuración de la base de datos
         File configFile = new File(getDataFolder(), "database-config.json");
         DatabaseConfig config = loadOrCreateConfig(configFile);
 
-        // Inicializar la conexión a la base de datos
         connection = new DatabaseConnection(config.getUrl(), config.getUsername(), config.getPassword());
 
-        // Inicializar DayListener
         DayListener.init(this, connection);
 
         FailTotemListener failTotemListener = new FailTotemListener(this, connection);
@@ -90,9 +87,8 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(zombieVillagerListener, this);
         getServer().getPluginManager().registerEvents(zombifiedPiglinListener, this);
 
-        getCommand("toggletotem").setExecutor(new ToggleTotemCommand(failTotemListener, this, connection));
-        getCommand("totemstatus").setExecutor(new TotemStatusCommand(failTotemListener, this, connection));
-        getCommand("setfailtotem").setExecutor(new SetFailTotemCommand(failTotemListener, this, connection));
+        getCommand("difficulty").setExecutor(new DifficultyCommand(this, failTotemListener, connection));
+        getCommand("difficulty").setTabCompleter(new DifficultyTabCompleter());
     }
 
     @Override
